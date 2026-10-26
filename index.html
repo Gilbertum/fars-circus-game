@@ -48,7 +48,7 @@
       <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span></div></header>
       <main class="main-content">
         <div class="stats-row"><div class="stat"><span>ПОЗИЦИЯ</span><strong id="stat-position">00 <small>/ 18</small></strong></div><div class="stat"><span>ПРОЙДЕНО ИГР</span><strong id="stat-completed">0</strong></div><div class="stat"><span>ЖЕТОНЫ УДАЧИ</span><strong id="stat-tickets">0 ✦</strong></div><div class="stat"><span>СТАТУС</span><strong class="small-status" id="stat-phase">Ожидание броска</strong></div></div>
-        <div class="board-header"><div><div class="eyebrow">КАРТА ПРЕДСТАВЛЕНИЯ</div><h3 id="board-title">Манеж испытаний</h3></div><div class="board-legend"><span><i class="dot mandatory"></i> Игра</span><span><i class="dot auction"></i> Аукцион</span><span><i class="dot bonus"></i> Бонус</span><span><i class="dot choice"></i> Выбор</span></div></div>
+        <div class="board-header"><div><div class="eyebrow">КАРТА ПРЕДСТАВЛЕНИЯ</div><h3 id="board-title">Манеж испытаний</h3></div><button type="button" class="btn ghost small" id="open-map-zoom" aria-haspopup="dialog">⛶ Развернуть карту</button><div class="board-legend"><span><i class="dot mandatory"></i> Игра</span><span><i class="dot auction"></i> Аукцион</span><span><i class="dot bonus"></i> Бонус</span><span><i class="dot choice"></i> Выбор</span></div></div>
         <div class="board-frame" id="board-frame">
           <div class="board-painting">
             <img id="board-image" src="./assets/fars-board.svg" alt="Манеж FARS — карта от клетки 00 до 18 с играми, аукционами и событиями" /><span id="board-token" class="board-token" role="img" aria-label="Фишка стримера"></span>
@@ -64,6 +64,14 @@
           <div id="board-stops" class="board-stops" aria-label="Маршрут по клеткам"></div>
           <div class="board-caption"><span>✦ FARS GRAND CIRCUS ✦</span><span id="board-caption-position">ОЖИДАЕМ ПЕРВОГО БРОСКА</span></div>
         </div>
+        <dialog id="board-zoom-dialog" class="board-zoom-dialog" aria-label="Карта FARS крупным планом">
+    <div class="zoom-header"><strong>✦ FARS — Манеж гастролей</strong><button type="button" class="btn ghost small" id="close-map-zoom">✕ Закрыть</button></div>
+    <p class="muted tiny">На телефоне прокручивай карту в стороны, чтобы рассмотреть клетки.</p>
+    <div class="zoom-scroller"><div class="zoom-canvas board-painting">
+      <img src="./assets/fars-board.svg" alt="Карта FARS, крупный план" />
+      <span id="board-zoom-token" class="board-token" role="img" aria-label="Текущая клетка"></span>
+    </div></div>
+  </dialog>
         <div class="content-grid">
           <section class="panel control-panel"><div class="panel-heading"><div><div class="eyebrow">СЛЕДУЮЩИЙ НОМЕР</div><h3 id="action-title">Манеж ждёт</h3></div><span class="decor-star">✧</span></div><p id="action-description" class="muted">Брось кубик, чтобы начать представление.</p><div id="action-controls"></div></section>
           <section class="panel about-panel"><div class="panel-heading"><div><div class="eyebrow">ЗРИТЕЛЬСКАЯ АФИША</div><h3>Показать прогресс</h3></div><span class="decor-star">✦</span></div>
