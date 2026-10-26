@@ -8,6 +8,7 @@ function draw(s){
  $('viewer-title').textContent=s.name||'Гастроли проклятых';
  $('viewer-owner').textContent='Ведущая: '+(s.nickname||'Стример')+' · Только просмотр';
  placeBoardToken($('viewer-token'),s.position);
+ placeBoardToken($('board-zoom-token'),s.position);
  $('viewer-position').innerHTML=String(s.position).padStart(2,'0')+' <span>из 18</span>';
  $('viewer-phase').textContent=({ready:'Ожидание броска',playing:'Идёт испытание',auction:'Золотой аукцион',choice:'Развилка',finished:'Занавес!'})[s.phase]||'Представление';
  $('viewer-event').textContent=s.lastEvent||'';
@@ -25,4 +26,6 @@ async function start(){
   draw(snap.data());
  },()=>{$('viewer-status').textContent='Не удалось загрузить афишу. Проверь опубликованные правила Firestore.';});
 }
+$('open-map-zoom').addEventListener('click',()=> $('board-zoom-dialog').showModal());
+$('close-map-zoom').addEventListener('click',()=> $('board-zoom-dialog').close());
 start().catch(e=>$('viewer-status').textContent=e.message);
