@@ -42,7 +42,7 @@
       <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">♠</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
       <div class="side-block season-block"><div class="section-overline flex-between">МОИ СЕЗОНЫ <button class="icon-btn" id="new-season" title="Создать сезон" aria-label="Создать сезон">＋</button></div><div id="season-list" class="season-list"></div></div>
       <div class="side-block"><p class="tiny muted">Оформление и список испытаний устанавливает организатор FARS.</p></div>
-      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.2</div></div>
+      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.3</div></div>
     </aside>
     <div class="workspace">
       <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span></div></header>
@@ -51,13 +51,13 @@
         <div class="board-header"><div><div class="eyebrow">КАРТА ПРЕДСТАВЛЕНИЯ</div><h3 id="board-title">Манеж испытаний</h3></div><div class="board-legend"><span><i class="dot mandatory"></i> Игра</span><span><i class="dot auction"></i> Аукцион</span><span><i class="dot bonus"></i> Бонус</span><span><i class="dot choice"></i> Выбор</span></div></div>
         <div class="board-frame" id="board-frame">
           <div class="board-painting">
-            <img id="board-image" src="./assets/arena.webp" alt="Иллюстрированная карта цирка FARS" />
-            <div class="painting-plaque">✦ FARS GRAND CIRCUS ✦</div>
+            <img id="board-image" src="./assets/fars-board.svg" alt="Манеж FARS — карта от клетки 00 до 18 с играми, аукционами и событиями" /><span id="board-token" class="board-token" role="img" aria-label="Фишка стримера"></span>
+            
           </div>
           <div class="board-facts">
             <div class="eyebrow">ИЗ ЦИРКОВОГО АРХИВА</div>
             <h3>Твоя карта гастролей</h3>
-            <p>Иллюстрация — часть мира FARS. Ход игры отслеживается по маршруту под ней; оформление не меняет правила.</p>
+            <p>Клетки 00–18 нанесены на карту. Золотая фишка показывает текущую позицию.</p>
             <div class="board-big-position" id="board-big-position">00 <span>из 18</span></div>
             <p class="muted" id="board-current-event">Представление начинается</p>
           </div>
