@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#190f17" />
+  <meta name="description" content="FARS — цирковая гонка по играм. Личный кабинет стримера, карта испытаний, аукционы и сезоны." />
+  <title>FARS · Гастроли проклятых</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="auth-screen" class="auth-layout">
+    <div class="auth-art"><div class="auth-art-overlay">
+      <div class="brand-lockup"><span class="brand-star">✦</span><span>FARS <small>STUDIO</small></span></div>
+      <div><div class="eyebrow">ИНТЕРАКТИВНАЯ ИГРОГОНКА</div><h1>Гастроли<br><em>проклятых</em></h1><p>Бросай кубик. Проходи игры. Отдавай судьбу представления в руки зрителей.</p></div>
+      <div class="art-footer">✦ &nbsp; МАНЕЖ ЗОВЁТ &nbsp; ✦</div>
+    </div></div>
+    <section class="login-panel" aria-label="Вход в кабинет">
+      <div class="login-inner">
+        <div class="eyebrow">ДОБРО ПОЖАЛОВАТЬ В ЦИРК</div>
+        <h2 id="auth-headline">Личный кабинет</h2>
+        <p class="muted" id="auth-description">Войди, чтобы открыть свои сезоны и продолжить представление.</p>
+        <form id="auth-form" class="stack">
+          <div class="field" id="nickname-field" hidden><label for="auth-nickname">Ник стримера</label><input type="text" id="auth-nickname" placeholder="Например, Xwaran" maxlength="64" autocomplete="nickname"></div>
+          <div class="field"><label for="auth-email">Почта</label><input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email" required /></div>
+          <div class="field"><label for="auth-password">Пароль</label><input type="password" id="auth-password" minlength="6" placeholder="Не менее 6 символов" autocomplete="current-password" required /></div>
+          <button class="btn primary large" type="submit" id="auth-submit">Войти в цирк <span>→</span></button>
+        </form>
+        <button class="text-button" id="auth-toggle" type="button">Нет аккаунта? Зарегистрироваться</button>
+        <button class="text-button" id="password-reset" type="button">Восстановить пароль</button>
+        <div class="auth-separator"><span>или</span></div>
+        <button class="btn outline full" id="demo-start" type="button">✦ Попробовать демо без регистрации</button>
+        <p class="tiny muted" id="auth-note">В демо прогресс сохраняется только в этом браузере. Для синхронизации между устройствами подключи Firebase.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="app-screen" class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand-lockup side-brand"><span class="brand-star">✦</span><span>FARS <small>ИГРОЦИРК</small></span></div>
+      <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">♠</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
+      <div class="side-block season-block"><div class="section-overline flex-between">МОИ СЕЗОНЫ <button class="icon-btn" id="new-season" title="Создать сезон" aria-label="Создать сезон">＋</button></div><div id="season-list" class="season-list"></div></div>
+      <div class="side-block side-design"><div class="section-overline">ОФОРМЛЕНИЕ МАРШРУТА</div><div id="theme-list" class="theme-list"></div></div>
+      <div class="side-bottom"><button id="edit-profile" class="subtle-link">⚙ Настройки профиля</button><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.1</div></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span><button class="btn ghost" id="rename-season">✎ Название</button><button class="btn ghost danger-text" id="delete-season">Удалить</button></div></header>
+      <main class="main-content">
+        <div class="stats-row"><div class="stat"><span>ПОЗИЦИЯ</span><strong id="stat-position">00 <small>/ 18</small></strong></div><div class="stat"><span>ПРОЙДЕНО ИГР</span><strong id="stat-completed">0</strong></div><div class="stat"><span>ЖЕТОНЫ УДАЧИ</span><strong id="stat-tickets">0 ✦</strong></div><div class="stat"><span>СТАТУС</span><strong class="small-status" id="stat-phase">Ожидание броска</strong></div></div>
+        <div class="board-header"><div><div class="eyebrow">КАРТА ПРЕДСТАВЛЕНИЯ</div><h3 id="board-title">Манеж испытаний</h3></div><div class="board-legend"><span><i class="dot mandatory"></i> Игра</span><span><i class="dot auction"></i> Аукцион</span><span><i class="dot bonus"></i> Бонус</span><span><i class="dot choice"></i> Выбор</span></div></div>
+        <div class="board-frame" id="board-frame">
+          <div class="board-backdrop" id="board-backdrop"></div>
+          <svg id="board-svg" viewBox="0 0 960 510" role="img" aria-label="Игровое поле с маршрутом и текущим положением фишки"></svg>
+          <div class="board-caption"><span>✦ FARS GRAND CIRCUS ✦</span><span id="board-caption-position">ОЖИДАЕМ ПЕРВОГО БРОСКА</span></div>
+        </div>
+        <div class="content-grid">
+          <section class="panel control-panel"><div class="panel-heading"><div><div class="eyebrow">СЛЕДУЮЩИЙ НОМЕР</div><h3 id="action-title">Манеж ждёт</h3></div><span class="decor-star">✧</span></div><p id="action-description" class="muted">Брось кубик, чтобы начать представление.</p><div id="action-controls"></div></section>
+          <section class="panel"><div class="panel-heading"><div><div class="eyebrow">РЕЖИССУРА</div><h3>Настроить испытания</h3></div><span class="decor-star">✧</span></div><p class="muted">Укажи игры и задачи, которые будут появляться на карте.</p><div class="field"><label for="edit-cell">Клетка</label><select id="edit-cell"><option value="3">03 · Обязательная игра I</option><option value="6">06 · Аукцион I</option><option value="8">08 · Обязательная игра II</option><option value="10">10 · Аукцион II</option><option value="12">12 · Обязательная игра III</option><option value="15">15 · Аукцион III</option><option value="17">17 · Обязательная игра IV</option></select></div><div id="game-editor"></div></section>
+        </div>
+        <section class="panel log-panel"><div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ПРЕДСТАВЛЕНИЯ</div><h3>История ходов</h3></div><button class="btn ghost small" id="undo">↶ Отменить последнее</button></div><div id="history-list" class="history-list"></div><div class="file-actions"><button class="btn ghost" id="export-season">⬇ Скачать резервную копию</button><button class="btn ghost" id="import-season">⬆ Импортировать сезон</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></section>
+        <footer class="footer">FARS — гастроли проклятых · Авторская механика игрового цирка · Публичной страницы сезона пока нет</footer>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
