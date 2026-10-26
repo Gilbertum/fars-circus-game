@@ -1,3 +1,4 @@
+import {placeBoardToken} from './board-map.mjs';
 import {CELLS,CELL_TITLES,THEMES,makeSeason,makeId,roll,finishGame,pickAuction,chooseReward,undo,updateGame,updateAuction,changeTheme,renameSeason,validateSeason} from './game.mjs';
 import {configured,connectFirebase,localStorageApi} from './storage.mjs';
 
@@ -20,16 +21,16 @@ function render(){const s=selectedSeason();if(!s)return;
   $('stat-position').innerHTML=String(s.position).padStart(2,'0')+' <small>/ 18</small>';
   $('stat-completed').textContent=(s.completed||[]).length;
   $('stat-tickets').textContent=s.tickets+' ✦';$('stat-phase').textContent=phaseName(s.phase);
-  $('board-title').textContent=THEMES[s.theme]+' испытаний';
+  $('board-title').textContent='Манеж испытаний';
   $('board-caption-position').textContent=s.phase==='finished'?'ЗАНАВЕС ОПУЩЕН':`КЛЕТКА ${String(s.position).padStart(2,'0')} · ${CELL_TITLES[CELLS[s.position]].toUpperCase()}`;
   
   drawBoard(s);drawActions(s);drawHistory(s);updateShareUI(s);
 }
 async function mutate(fn){if(busy)return;const before=selectedSeason();try{busy=true;const next=fn(before);if(!validateSeason(next))throw new Error('Некорректное состояние сезона.');$('save-status').textContent='◌ Сохранение…';await store.save(next);if(next.published&&store.publish)await store.publish(next,nickname);seasons=seasons.map(s=>s.id===next.id?next:s);$('save-status').textContent='● Сохранено';render();}catch(e){$('save-status').textContent='! Ошибка сохранения';message(errorText(e));}finally{busy=false;}}
 function drawBoard(s){
-  const image=$('board-image');
-  image.src='./assets/'+s.theme+'.webp';
-  image.alt='Иллюстрированная карта: '+THEMES[s.theme];
+  // Art and all nineteen cells live in one static image.
+  // Only the marker is positioned dynamically; no SVG route is generated.
+  placeBoardToken($('board-token'),s.position);
   $('board-big-position').innerHTML=String(s.position).padStart(2,'0')+' <span>из 18</span>';
   $('board-current-event').textContent=s.lastEvent || '';
   $('board-stops').innerHTML=Array.from({length:19},(_,i)=>{
