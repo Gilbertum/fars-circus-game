@@ -187,3 +187,6 @@ h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif}
 .login-inner input{border-radius:4px}
 .login-inner .btn.primary{margin-top:18px}
 @media(max-width:470px){.control-panel .big-roll::after{width:62px;height:61px}}
+
+/* Public viewer must retain its phase and current-game description. */
+.viewer-board .board-facts{display:flex}
