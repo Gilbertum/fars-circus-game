@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-labelledby="title">
+<title id="title">Фишка FARS — чертёнок-котик</title>
+<defs>
+ <radialGradient id="halo"><stop stop-color="#ffe6a1" stop-opacity=".7"/><stop offset=".62" stop-color="#fabc6f" stop-opacity=".4"/><stop offset="1" stop-color="#ffc164" stop-opacity="0"/></radialGradient>
+ <linearGradient id="fur"><stop stop-color="#67606c"/><stop offset=".35" stop-color="#343039"/><stop offset="1" stop-color="#141218"/></linearGradient>
+ <linearGradient id="fire"><stop stop-color="#ffe7a0"/><stop offset=".53" stop-color="#f18b37"/><stop offset="1" stop-color="#b53640"/></linearGradient>
+</defs>
+<circle cx="60" cy="63" r="53" fill="url(#halo)"/>
+<path d="M83 90Q109 83 103 55Q93 32 107 25Q111 48 113 58Q120 93 89 100" fill="none" stroke="#21151d" stroke-width="14" stroke-linecap="round"/>
+<path d="M107 27Q98 18 102 6Q116 14 107 27Z" fill="url(#fire)" stroke="#e7bc83" stroke-width="2"/>
+<path d="M24 41L18 10L46 26L70 23L95 9L91 45Z" fill="url(#fur)" stroke="#120e16" stroke-width="4"/>
+<path d="M25 31L24 19L40 30M77 28L90 19L86 36" fill="#b3424b"/>
+<path d="M26 27Q11 15 16 0Q33 8 34 27M77 22Q95 9 92 0Q110 14 95 33" fill="#8e2c38" stroke="#d28d62" stroke-width="3"/>
+<ellipse cx="60" cy="65" rx="41" ry="38" fill="url(#fur)" stroke="#120e16" stroke-width="5"/>
+<path d="M29 61Q45 56 54 62Q40 73 29 61ZM66 62Q80 57 92 61Q82 74 66 62Z" fill="#f9bd59" stroke="#9e533f" stroke-width="2"/>
+<circle cx="43" cy="62" r="3" fill="#25121a"/><circle cx="78" cy="63" r="3" fill="#25121a"/>
+<path d="M54 76L60 80L66 75Z" fill="#b97680"/>
+<path d="M51 87L60 91L69 86" fill="none" stroke="#f1d0b0" stroke-width="2"/>
+<path d="M34 102Q60 110 87 102L80 113H43Z" fill="#922d38" stroke="#dca05e" stroke-width="3"/>
+<path d="M58 102L63 102L61 113Z" fill="#f5c179"/>
+<path d="M26 78L4 74M25 85L5 90M94 78L115 75M95 85L115 92" stroke="#bfa899" stroke-width="2" stroke-linecap="round"/>
+</svg>
