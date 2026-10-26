@@ -26,3 +26,9 @@
 .share-actions{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}
 @media(max-width:1100px){.board-frame{grid-template-columns:1fr}.board-facts{padding:18px}.board-facts h3{margin:0}.board-facts p{margin:0}.board-big-position{font-size:52px}.board-stops{grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}.stop{height:42px}}
 @media(max-width:550px){.board-stops{grid-template-columns:repeat(7,minmax(0,1fr))}.painting-plaque{font-size:8px;padding:6px 10px}}
+
+.viewer-page{background:radial-gradient(ellipse at top,#4a262d,#170e14 65%);min-height:100vh}
+.viewer-shell{max-width:1400px;padding:28px clamp(14px,4vw,48px) 64px;margin:auto}
+.viewer-shell>.brand-lockup{margin-bottom:38px}.viewer-shell>h1{font:700 clamp(42px,6vw,78px)/1 'Cormorant Garamond',Georgia,serif;color:#f6d7a7;margin:10px 0}
+.viewer-shell>.muted{max-width:850px}.viewer-board{margin:28px 0 18px}
+.viewer-board .board-facts{min-height:240px}
