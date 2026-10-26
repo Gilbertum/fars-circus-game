@@ -161,3 +161,29 @@ h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif}
  .stats-row{gap:6px}
  .stat{padding:9px}.stat strong{font-size:22px}
 }
+
+/* Component art bindings: static PNG framing, live semantic content */
+.board-header{background:
+ linear-gradient(90deg,#471824c7,#250f17d8),url('./assets/ui/title-ribbon.png') center/100% 100% no-repeat}
+.next-stop{background:linear-gradient(145deg,#44242d,#25131b);border-image-source:url('./assets/ui/stop-card.png');
+ border-image-slice:35 fill;border-image-width:12px;border-image-repeat:stretch}
+.btn.primary{border-image-source:url('./assets/ui/button-red.png');border-image-slice:32 fill;
+ border-image-width:15px;border-image-repeat:stretch}
+.btn.ghost{border-image-source:url('./assets/ui/button-cream.png');border-image-slice:32 fill;
+ border-image-width:14px;border-image-repeat:stretch}
+.global-star{background:#571924 url('./assets/ui/star-medallion.png') center/cover no-repeat}
+.control-panel .big-roll::after{content:"";display:block;width:100px;height:88px;margin-left:auto;
+ background:url('./assets/ui/dice.png') center/contain no-repeat}
+.sidebar .season-item.active{background:linear-gradient(#872732,#611d2b)}
+.auth-art{background:
+ linear-gradient(0deg,#150912bb,#18081155),url('./assets/ui/stage-atmosphere.png') center/cover,
+ url('./assets/arena.webp') center/cover}
+.login-panel{background:linear-gradient(140deg,#351923,#140b14);border-left:2px ridge #bd8450}
+.login-inner{border:1px solid #9a633d;padding:clamp(18px,3vw,38px);
+ background:linear-gradient(145deg,#311925dd,#160b14eb);border-radius:6px;
+ box-shadow:inset 0 0 0 3px #170912,0 20px 30px #0006}
+.login-inner .eyebrow{font-family:Georgia,serif}
+.login-inner h2{color:#f7d398}
+.login-inner input{border-radius:4px}
+.login-inner .btn.primary{margin-top:18px}
+@media(max-width:470px){.control-panel .big-roll::after{width:62px;height:61px}}
