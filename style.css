@@ -77,3 +77,20 @@
  .board-painting .board-token{width:17px;border-width:1px;box-shadow:0 0 0 2px #4b202a,0 0 9px 2px #f3bb5b99}
  .board-token:after{inset:-3px}
 }
+
+/* Enlarged read-only board, with horizontal scrolling for narrow screens. */
+.viewer-tools{display:flex;justify-content:flex-end;margin:8px 0}
+.board-zoom-dialog{
+  width:min(96vw,1450px);max-width:none;max-height:94dvh;
+  border:2px solid #d3a065;border-radius:14px;padding:16px;
+  color:var(--cream);background:#22151b;
+  box-shadow:0 24px 90px #000b;
+}
+.board-zoom-dialog::backdrop{background:#09060aca;backdrop-filter:blur(5px)}
+.zoom-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  color:#f0cd99;font:700 21px Georgia,serif;padding:3px 3px 10px}
+.board-zoom-dialog .muted{margin:0 3px 10px}
+.zoom-scroller{overflow-x:auto;overflow-y:auto;max-height:calc(94dvh - 130px);border:1px solid #896446;border-radius:10px}
+.zoom-canvas{width:max(100%,980px);position:relative}
+.zoom-canvas img{display:block;width:100%;height:auto;aspect-ratio:16/9}
+@media(max-width:600px){.zoom-canvas{width:980px}.board-zoom-dialog{padding:10px}.zoom-header{font-size:17px}}
