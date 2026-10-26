@@ -1,3 +1,4 @@
+import {placeBoardToken} from './board-map.mjs';
 import {firebaseConfig} from './firebase-config.js';
 import {CELLS,CELL_TITLES,THEMES} from './game.mjs';
 const $=id=>document.getElementById(id);
@@ -6,8 +7,7 @@ const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'
 function draw(s){
  $('viewer-title').textContent=s.name||'Гастроли проклятых';
  $('viewer-owner').textContent='Ведущая: '+(s.nickname||'Стример')+' · Только просмотр';
- const theme=THEMES[s.theme]?s.theme:'arena';
- $('viewer-art').src='./assets/'+theme+'.webp';
+ placeBoardToken($('viewer-token'),s.position);
  $('viewer-position').innerHTML=String(s.position).padStart(2,'0')+' <span>из 18</span>';
  $('viewer-phase').textContent=({ready:'Ожидание броска',playing:'Идёт испытание',auction:'Золотой аукцион',choice:'Развилка',finished:'Занавес!'})[s.phase]||'Представление';
  $('viewer-event').textContent=s.lastEvent||'';
