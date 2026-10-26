@@ -28,7 +28,9 @@ export async function connectFirebase(){
     const profileRef=doc(db,'streamers',uid);
     const seasonRef=id=>doc(db,'streamers',uid,'seasons',id);
     return {
-      mode:'firebase',
+      mode:'firebase',uid,
+      async publish(season,nickname){await setDoc(doc(db,'publicSeasons',uid+'_'+season.id),{ownerUid:uid,seasonId:season.id,nickname:nickname.slice(0,64),name:season.name,theme:season.theme,position:season.position,phase:season.phase,tickets:season.tickets,completed:season.completed,lastEvent:season.lastEvent,currentTask:season.currentTask,updatedAt:Date.now()});},
+      async unpublish(season){await deleteDoc(doc(db,'publicSeasons',uid+'_'+season.id));},
       async profile(){const snap=await getDoc(profileRef);return snap.exists()?snap.data():{nickname:auth.currentUser.displayName||'Стример'};},
       async saveProfile(nickname){await setDoc(profileRef,{nickname:nickname.slice(0,64),createdAt:Date.now()},{merge:true});await updateProfile(auth.currentUser,{displayName:nickname.slice(0,64)});},
       async list(){const snap=await getDocs(collection(db,'streamers',uid,'seasons'));return snap.docs.map(s=>s.data());},
