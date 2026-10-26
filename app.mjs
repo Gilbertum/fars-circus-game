@@ -31,6 +31,7 @@ function drawBoard(s){
   // Art and all nineteen cells live in one static image.
   // Only the marker is positioned dynamically; no SVG route is generated.
   placeBoardToken($('board-token'),s.position);
+  placeBoardToken($('board-zoom-token'),s.position);
   $('board-big-position').innerHTML=String(s.position).padStart(2,'0')+' <span>из 18</span>';
   $('board-current-event').textContent=s.lastEvent || '';
   $('board-stops').innerHTML=Array.from({length:19},(_,i)=>{
@@ -91,5 +92,7 @@ $('unpublish-season').addEventListener('click',async()=>{
  catch(e){message(errorText(e));}
 });
 
+$('open-map-zoom').addEventListener('click',()=> $('board-zoom-dialog').showModal());
+$('close-map-zoom').addEventListener('click',()=> $('board-zoom-dialog').close());
 async function init(){setAuthMode(false);if(!configured){$('auth-note').textContent='Firebase не настроен: доступен демо-режим с локальным сохранением. После подключения конфигурации появятся реальные кабинеты.';return;}try{backend=await connectFirebase();backend.observe(async user=>{if(user){try{await openApp(backend.getStore(),false);}catch(e){message(errorText(e));showAuth();}}else if(!demo)showAuth();});}catch(e){message(`Не удалось подключить Firebase: ${errorText(e)}. Демо по-прежнему доступно.`);}}
 init();
