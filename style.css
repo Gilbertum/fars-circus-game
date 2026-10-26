@@ -94,3 +94,36 @@
 .zoom-canvas{width:max(100%,980px);position:relative}
 .zoom-canvas img{display:block;width:100%;height:auto;aspect-ratio:16/9}
 @media(max-width:600px){.zoom-canvas{width:980px}.board-zoom-dialog{padding:10px}.zoom-header{font-size:17px}}
+
+
+/* FARS v0.4: graphical FARS cat token replaces the generic spade icon.
+   Existing marker coordinates are identical to v0.3 for all 19 cells. */
+.board-painting .board-token{
+  width:clamp(28px,4.2vw,68px);
+  aspect-ratio:1;
+  background:transparent url('./assets/fars-cat-token.svg') center/contain no-repeat;
+  box-shadow:none;
+  border:none;
+  border-radius:0;
+  filter:drop-shadow(0 2px 2px #13090c) drop-shadow(0 0 10px #f0b865b5);
+  transform:translate(-50%,-52%);
+}
+.board-painting .board-token:before{content:none}
+.board-painting .board-token:after{
+  inset:5%;
+  border:2px solid #f6cc82a8;
+  border-radius:50%;
+  animation:fars-glint 2.8s ease-in-out infinite;
+}
+.board-painting{background:linear-gradient(125deg,#1e1016,#361f20)}
+.board-painting img#board-image,.board-painting img#viewer-art,.zoom-canvas img{
+  aspect-ratio:16/9;object-fit:contain;
+}
+@media(max-width:550px){
+ .board-painting .board-token{width:clamp(21px,5.2vw,31px)}
+ .zoom-canvas .board-token{width:53px}
+}
+@media(prefers-reduced-motion:reduce){
+ .board-painting .board-token{transition:none}
+ .board-painting .board-token:after{animation:none}
+}
