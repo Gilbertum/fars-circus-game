@@ -15,5 +15,14 @@ service cloud.firestore {
         allow delete: if isOwner(uid);
       }
     }
+    match /publicSeasons/{publicId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if request.auth != null
+        && request.resource.data.ownerUid == request.auth.uid
+        && publicId == request.auth.uid + '_' + request.resource.data.seasonId
+        && request.resource.data.keys().hasOnly(['ownerUid','seasonId','nickname','name','theme','position','phase','tickets','completed','lastEvent','currentTask','updatedAt']);
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
   }
 }
