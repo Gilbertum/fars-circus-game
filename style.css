@@ -32,3 +32,65 @@
 .viewer-shell>.brand-lockup{margin-bottom:38px}.viewer-shell>h1{font:700 clamp(42px,6vw,78px)/1 'Cormorant Garamond',Georgia,serif;color:#f6d7a7;margin:10px 0}
 .viewer-shell>.muted{max-width:850px}.viewer-board{margin:28px 0 18px}
 .viewer-board .board-facts{min-height:240px}
+
+
+/* FARS v0.3: the complete map is a single static image.
+   On top we render only the user's piece, not the road or cells. */
+.board-painting{
+  isolation:isolate;
+  background:
+   linear-gradient(115deg,#1d1016d8,#321722d2),
+   url('./assets/arena.webp') center 44%/cover no-repeat;
+}
+.board-painting img#board-image,.board-painting img#viewer-art{
+  width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;
+  position:relative;z-index:1;display:block;filter:none;
+}
+.board-painting .board-token{
+  position:absolute;z-index:4;
+  width:clamp(17px,2.4vw,36px);aspect-ratio:1;
+  display:grid;place-items:center;
+  transform:translate(-50%,-50%);
+  border:2px solid #ffe3a5;
+  border-radius:46% 46% 50% 50%;
+  background:radial-gradient(circle at 42% 28%,#6b3039,#20121e 70%);
+  box-shadow:0 0 0 3px #4b202a,0 0 18px 5px #f3bb5b99,0 3px 6px #11080e;
+  transition:left .7s ease-in-out,top .7s ease-in-out;
+  pointer-events:none;
+}
+.board-token:before{
+  content:'♠';
+  display:block;color:#f5cf90;
+  font-size:clamp(13px,1.65vw,25px);
+  line-height:1;
+}
+.board-token:after{
+  content:'';
+  position:absolute;inset:-7px;
+  border:1px dashed #f5cf9066;
+  border-radius:50%;
+  animation:fars-glint 2.8s linear infinite;
+}
+@keyframes fars-glint{50%{opacity:.25;transform:scale(1.12)}}
+@media(prefers-reduced-motion:reduce){.board-painting .board-token{transition:none}.board-token:after{animation:none}}
+@media(max-width:550px){
+ .board-painting .board-token{width:17px;border-width:1px;box-shadow:0 0 0 2px #4b202a,0 0 9px 2px #f3bb5b99}
+ .board-token:after{inset:-3px}
+}
+
+/* Enlarged read-only board, with horizontal scrolling for narrow screens. */
+.viewer-tools{display:flex;justify-content:flex-end;margin:8px 0}
+.board-zoom-dialog{
+  width:min(96vw,1450px);max-width:none;max-height:94dvh;
+  border:2px solid #d3a065;border-radius:14px;padding:16px;
+  color:var(--cream);background:#22151b;
+  box-shadow:0 24px 90px #000b;
+}
+.board-zoom-dialog::backdrop{background:#09060aca;backdrop-filter:blur(5px)}
+.zoom-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  color:#f0cd99;font:700 21px Georgia,serif;padding:3px 3px 10px}
+.board-zoom-dialog .muted{margin:0 3px 10px}
+.zoom-scroller{overflow-x:auto;overflow-y:auto;max-height:calc(94dvh - 130px);border:1px solid #896446;border-radius:10px}
+.zoom-canvas{width:max(100%,980px);position:relative}
+.zoom-canvas img{display:block;width:100%;height:auto;aspect-ratio:16/9}
+@media(max-width:600px){.zoom-canvas{width:980px}.board-zoom-dialog{padding:10px}.zoom-header{font-size:17px}}
