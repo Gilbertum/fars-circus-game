@@ -1,7 +1,7 @@
 name: Check FARS game
 on:
   push:
-    branches: [main, feature/v0.3-illustrated-board]
+    branches: [main]
   pull_request:
     branches: [main]
 jobs:
@@ -16,5 +16,11 @@ jobs:
           node-version: '22'
       - name: Run unit tests
         run: node --test tests/*.test.mjs
+      - name: Check browser module syntax
+        run: |
+          node --check app.mjs
+          node --check ui-pages.mjs
+          node --check viewer.mjs
+          node --check board-map.mjs
       - name: Verify board file exists
         run: test -s assets/fars-board.svg
