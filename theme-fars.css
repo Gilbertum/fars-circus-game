@@ -377,3 +377,14 @@ body[data-view="season"] .dashboard-right .settings-panel{display:none}
  .dashboard-left .board-header h3{font-size:24px}
  .dashboard-left>.board-header{min-height:67px;padding:8px}
 }
+
+/* Ensure the desktop named grid areas do not create a phantom second column
+   on tablets. Keep decorative imagery inside its actual panel dimensions. */
+@media(max-width:1150px){
+ .main-content{grid-template-areas:none;grid-template-rows:none}
+ .dashboard-left,.dashboard-right,.stats-row,.footer{grid-area:auto}
+}
+@media(max-width:820px){
+ .dashboard-left,.dashboard-right{flex:0 0 auto}
+ .panel{max-width:100%}
+}
