@@ -7,6 +7,7 @@
   <meta name="description" content="FARS — цирковая гонка по играм. Личный кабинет стримера, карта испытаний, аукционы и сезоны." />
   <title>FARS · Гастроли проклятых</title>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./theme-fars.css" />
 </head>
 <body>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -37,12 +38,22 @@
   </div>
 
   <div id="app-screen" class="app-shell" hidden>
+    <header class="fars-global">
+      <a href="#season-title" class="global-home" aria-label="FARS — к началу сезона"><span class="global-logo">FARS</span><small>ГАСТРОЛИ ПРОКЛЯТЫХ</small></a>
+      <nav class="global-nav" aria-label="Навигация по кабинету">
+        <a href="#season-title" class="active">МОЙ СЕЗОН</a>
+        <a href="#action-title">ИСПЫТАНИЕ</a>
+        <a href="#board-frame">КАРТА</a>
+        <a href="#history-list">ИСТОРИЯ</a>
+      </nav>
+      <div class="global-status"><span class="global-star">✦</span><span id="top-streamer-name">Стример</span></div>
+    </header>
     <aside class="sidebar">
       <div class="brand-lockup side-brand"><span class="brand-star">✦</span><span>FARS <small>ИГРОЦИРК</small></span></div>
       <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">♠</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
       <div class="side-block season-block"><div class="section-overline flex-between">МОИ СЕЗОНЫ <button class="icon-btn" id="new-season" title="Создать сезон" aria-label="Создать сезон">＋</button></div><div id="season-list" class="season-list"></div></div>
       <div class="side-block"><p class="tiny muted">Оформление и список испытаний устанавливает организатор FARS.</p></div>
-      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.4</div></div>
+      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.5</div></div>
     </aside>
     <div class="workspace">
       <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span></div></header>
@@ -74,7 +85,7 @@
   </dialog>
         <div class="content-grid">
           <section class="panel control-panel"><div class="panel-heading"><div><div class="eyebrow">СЛЕДУЮЩИЙ НОМЕР</div><h3 id="action-title">Манеж ждёт</h3></div><span class="decor-star">✧</span></div><p id="action-description" class="muted">Брось кубик, чтобы начать представление.</p><div id="action-controls"></div></section>
-          <section class="panel about-panel"><div class="panel-heading"><div><div class="eyebrow">ЗРИТЕЛЬСКАЯ АФИША</div><h3>Показать прогресс</h3></div><span class="decor-star">✦</span></div>
+          <section class="panel about-panel"><div class="panel-heading"><div><div class="eyebrow">ЗРИТЕЛЬСКАЯ АФИША</div><h3>Открыть для зрителей</h3></div><span class="decor-star">✦</span></div>
             <p class="muted">Зрители смогут следить за игрой по отдельной ссылке. У них не будет кнопок управления, редактора или доступа к твоему кабинету.</p>
             <div class="share-actions">
               <button class="btn primary" id="publish-season">✦ Опубликовать сезон</button>
@@ -84,8 +95,9 @@
             <p class="tiny muted" id="share-hint">Публикация доступна только для аккаунтов Firebase.</p>
           </section>
         </div>
-        <section class="panel log-panel"><div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ПРЕДСТАВЛЕНИЯ</div><h3>История ходов</h3></div></div><div id="history-list" class="history-list"></div></section>
-        <footer class="footer">FARS — гастроли проклятых · Авторская механика игрового цирка · Без редактора испытаний в кабинете игрока</footer>
+        <section class="panel log-panel"><div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ПРЕДСТАВЛЕНИЯ</div><h3>Последние ходы</h3></div></div><div id="history-list" class="history-list"></div></section>
+        <section class="panel next-panel"><div class="panel-heading"><div><div class="eyebrow">ЧТО ВПЕРЕДИ</div><h3>Ближайшие остановки</h3></div></div><div id="next-stop-list" class="next-stop-list"></div></section>
+        <footer class="footer">FARS — Гастроли проклятых · Интерфейс версии 0.5</footer>
       </main>
     </div>
   </div>

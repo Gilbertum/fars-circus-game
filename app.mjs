@@ -14,7 +14,7 @@ function setAuthMode(register){authRegister=register;$('auth-headline').textCont
 function showAuth(){visible('app-screen',false);visible('auth-screen',true);$('auth-email').value='';$('auth-password').value='';}
 async function openApp(newStore,isDemo=false){store=newStore;demo=isDemo;nickname=(await store.profile()).nickname||'Стример';seasons=(await store.list()).filter(validateSeason).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));if(!seasons.length){const first=makeSeason();await store.save(first);seasons=[first];}if(!seasons.find(s=>s.id===selected))selected=seasons[0].id;visible('auth-screen',false);visible('app-screen',true);render();}
 function render(){const s=selectedSeason();if(!s)return;
-  $('streamer-name').textContent=nickname;$('mode-badge').textContent=demo?'Демо · этот браузер':'Firebase · облачный аккаунт';
+  $('streamer-name').textContent=nickname;$('top-streamer-name').textContent=nickname;$('mode-badge').textContent=demo?'Демо · этот браузер':'Firebase · облачный аккаунт';
   $('season-title').textContent=s.name;
   $('season-list').innerHTML=seasons.map(se=>`<button class="season-item ${se.id===selected?'active':''}" data-season="${esc(se.id)}" title="${esc(se.name)}">${se.id===selected?'✦':'◇'} ${esc(se.name)}</button>`).join('');
   
@@ -24,9 +24,22 @@ function render(){const s=selectedSeason();if(!s)return;
   $('board-title').textContent='Манеж испытаний';
   $('board-caption-position').textContent=s.phase==='finished'?'ЗАНАВЕС ОПУЩЕН':`КЛЕТКА ${String(s.position).padStart(2,'0')} · ${CELL_TITLES[CELLS[s.position]].toUpperCase()}`;
   
-  drawBoard(s);drawActions(s);drawHistory(s);updateShareUI(s);
+  drawBoard(s);drawActions(s);drawHistory(s);drawUpcoming(s);updateShareUI(s);
 }
 async function mutate(fn){if(busy)return;const before=selectedSeason();try{busy=true;const next=fn(before);if(!validateSeason(next))throw new Error('Некорректное состояние сезона.');$('save-status').textContent='◌ Сохранение…';await store.save(next);if(next.published&&store.publish)await store.publish(next,nickname);seasons=seasons.map(s=>s.id===next.id?next:s);$('save-status').textContent='● Сохранено';render();}catch(e){$('save-status').textContent='! Ошибка сохранения';message(errorText(e));}finally{busy=false;}}
+
+function drawUpcoming(s){
+ const list=$('next-stop-list');
+ if(!list)return;
+ if(s.position>=18){list.innerHTML='<p class="muted">Представление завершено. Занавес!</p>';return;}
+ const indexes=Array.from({length:Math.min(4,18-s.position)},(_,i)=>s.position+i+1);
+ list.innerHTML=indexes.map(i=>{
+  const kind=CELLS[i];
+  const value=kind==='mandatory'?(s.games?.[i]?.title||CELL_TITLES[kind]):kind==='auction'?'Золотой билет':CELL_TITLES[kind];
+  return '<div class="next-stop '+kind+'" title="'+esc(CELL_TITLES[kind])+'"><strong>'+String(i).padStart(2,'0')+'</strong><div><small>'+esc(CELL_TITLES[kind])+'</small><span>'+esc(value)+'</span></div></div>';
+ }).join('');
+}
+
 function drawBoard(s){
   // Art and all nineteen cells live in one static image.
   // Only the marker is positioned dynamically; no SVG route is generated.
