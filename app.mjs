@@ -24,7 +24,7 @@ function render(){const s=selectedSeason();if(!s)return;
   $('board-title').textContent='Манеж испытаний';
   $('board-caption-position').textContent=s.phase==='finished'?'ЗАНАВЕС ОПУЩЕН':`КЛЕТКА ${String(s.position).padStart(2,'0')} · ${CELL_TITLES[CELLS[s.position]].toUpperCase()}`;
   
-  drawBoard(s);drawActions(s);drawHistory(s);drawUpcoming(s);updateShareUI(s);
+  drawBoard(s);drawActions(s);drawHistory(s);drawUpcoming(s);drawSeasonDetails(s);updateShareUI(s);
 }
 async function mutate(fn){if(busy)return;const before=selectedSeason();try{busy=true;const next=fn(before);if(!validateSeason(next))throw new Error('Некорректное состояние сезона.');$('save-status').textContent='◌ Сохранение…';await store.save(next);if(next.published&&store.publish)await store.publish(next,nickname);seasons=seasons.map(s=>s.id===next.id?next:s);$('save-status').textContent='● Сохранено';render();}catch(e){$('save-status').textContent='! Ошибка сохранения';message(errorText(e));}finally{busy=false;}}
 
@@ -38,6 +38,42 @@ function drawUpcoming(s){
   const value=kind==='mandatory'?(s.games?.[i]?.title||CELL_TITLES[kind]):kind==='auction'?'Золотой билет':CELL_TITLES[kind];
   return '<div class="next-stop '+kind+'" title="'+esc(CELL_TITLES[kind])+'"><strong>'+String(i).padStart(2,'0')+'</strong><div><small>'+esc(CELL_TITLES[kind])+'</small><span>'+esc(value)+'</span></div></div>';
  }).join('');
+}
+
+
+/** Read-only listings and derived statistics; never mutates a season. */
+function drawSeasonDetails(s){
+ const games=$('season-game-list'),metrics=$('season-metrics');
+ const mandatories=[3,8,12,17],auctions=[6,10,15],completed=s.completed||[];
+ games.innerHTML='<h4>Обязательные игры</h4>'+
+ mandatories.map(pos=>{
+   const g=s.games?.[pos]||{},done=completed.includes(pos);
+   return '<div class="game-item"><span class="game-stage">'+String(pos).padStart(2,'0')+
+      '</span><div><strong>'+esc(g.title||'Игра не назначена')+'</strong><small>'+
+      esc(g.goal||'')+' · '+esc(g.time||'—')+'</small></div><span class="game-state">'+
+      (done?'✓ Пройдено':'Ожидает')+'</span></div>';
+ }).join('')+'<h4>Зрительские аукционы</h4>'+
+ auctions.map(pos=>{
+   const options=s.auctions?.[pos]||[];
+   const desc=options.filter(x=>x.title).map(x=>x.title).join(' · ');
+   return '<div class="game-item auction-item"><span class="game-stage">'+String(pos).padStart(2,'0')+
+   '</span><div><strong>Золотой билет</strong><small>'+esc(desc||'Варианты не назначены')+
+   '</small></div></div>';
+ }).join('');
+ const fraction=Math.min(1,Math.max(0,s.position/18));
+ $('season-progress-bar').style.width=(fraction*100).toFixed(1)+'%';
+ $('season-progress-text').textContent='Пройдено '+s.position+' из 18 клеток · '+Math.round(fraction*100)+'%';
+ const logs=Array.isArray(s.logs)?s.logs:[];
+ const numberOfRolls=logs.filter(x=>/^Кубик:/.test(x.text||'')).length;
+ const completeMandatory=mandatories.filter(x=>completed.includes(x)).length;
+ const numbers=[
+   ['Завершено испытаний',completed.length],
+   ['Обязательные номера',completeMandatory+' / 4'],
+   ['Броски в истории',numberOfRolls],
+   ['Жетоны удачи',s.tickets||0]
+ ];
+ metrics.innerHTML=numbers.map(([k,v])=>'<div class="metric"><span>'+esc(k)+
+ '</span><strong>'+esc(v)+'</strong></div>').join('');
 }
 
 function drawBoard(s){

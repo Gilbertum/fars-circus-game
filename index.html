@@ -39,26 +39,28 @@
 
   <div id="app-screen" class="app-shell" hidden>
     <header class="fars-global">
-      <a href="#season-title" class="global-home" aria-label="FARS — к началу сезона"><span class="global-logo">FARS</span><small>ГАСТРОЛИ ПРОКЛЯТЫХ</small></a>
+      <a href="#season" class="global-home" data-view="season" aria-label="FARS — мой сезон"><img class="global-logo-img" src="./assets/ui/logo.png" alt="FARS — Гастроли проклятых" /></a>
       <nav class="global-nav" aria-label="Навигация по кабинету">
-        <a href="#season-title" class="active">МОЙ СЕЗОН</a>
-        <a href="#action-title">ИСПЫТАНИЕ</a>
-        <a href="#board-frame">КАРТА</a>
-        <a href="#history-list">ИСТОРИЯ</a>
+        <a href="#season" data-view="season" class="active" aria-current="page">МОЙ СЕЗОН</a>
+        <a href="#map" data-view="map">КАРТА</a>
+        <a href="#games" data-view="games">ИГРЫ</a>
+        <a href="#statistics" data-view="statistics">СТАТИСТИКА</a>
+        <a href="#settings" data-view="settings">НАСТРОЙКИ</a>
       </nav>
-      <div class="global-status"><span class="global-star">✦</span><span id="top-streamer-name">Стример</span></div>
+      <div class="global-status"><span class="global-star" aria-hidden="true"></span><span id="top-streamer-name">Стример</span></div>
     </header>
     <aside class="sidebar">
-      <div class="brand-lockup side-brand"><span class="brand-star">✦</span><span>FARS <small>ИГРОЦИРК</small></span></div>
-      <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">♠</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
+      <div class="side-brand-label">✦ ЛИЧНАЯ ЛОЖА</div>
+      <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">✦</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
       <div class="side-block season-block"><div class="section-overline flex-between">МОИ СЕЗОНЫ <button class="icon-btn" id="new-season" title="Создать сезон" aria-label="Создать сезон">＋</button></div><div id="season-list" class="season-list"></div></div>
       <div class="side-block"><p class="tiny muted">Оформление и список испытаний устанавливает организатор FARS.</p></div>
-      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.5</div></div>
+      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.6</div></div>
     </aside>
     <div class="workspace">
       <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span></div></header>
       <main class="main-content">
         <div class="stats-row"><div class="stat"><span>ПОЗИЦИЯ</span><strong id="stat-position">00 <small>/ 18</small></strong></div><div class="stat"><span>ПРОЙДЕНО ИГР</span><strong id="stat-completed">0</strong></div><div class="stat"><span>ЖЕТОНЫ УДАЧИ</span><strong id="stat-tickets">0 ✦</strong></div><div class="stat"><span>СТАТУС</span><strong class="small-status" id="stat-phase">Ожидание броска</strong></div></div>
+        <div class="dashboard-left">
         <div class="board-header"><div><div class="eyebrow">КАРТА ПРЕДСТАВЛЕНИЯ</div><h3 id="board-title">Манеж испытаний</h3></div><button type="button" class="btn ghost small" id="open-map-zoom" aria-haspopup="dialog">⛶ Развернуть карту</button><div class="board-legend"><span><i class="dot mandatory"></i> Игра</span><span><i class="dot auction"></i> Аукцион</span><span><i class="dot bonus"></i> Бонус</span><span><i class="dot choice"></i> Выбор</span></div></div>
         <div class="board-frame" id="board-frame">
           <div class="board-painting">
@@ -83,6 +85,10 @@
       <span id="board-zoom-token" class="board-token" role="img" aria-label="Текущая клетка"></span>
     </div></div>
   </dialog>
+
+        <section class="panel log-panel"><div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ПРЕДСТАВЛЕНИЯ</div><h3>Последние ходы</h3></div></div><div id="history-list" class="history-list"></div></section>
+        </div>
+        <div class="dashboard-right">
         <div class="content-grid">
           <section class="panel control-panel"><div class="panel-heading"><div><div class="eyebrow">СЛЕДУЮЩИЙ НОМЕР</div><h3 id="action-title">Манеж ждёт</h3></div><span class="decor-star">✧</span></div><p id="action-description" class="muted">Брось кубик, чтобы начать представление.</p><div id="action-controls"></div></section>
           <section class="panel about-panel"><div class="panel-heading"><div><div class="eyebrow">ЗРИТЕЛЬСКАЯ АФИША</div><h3>Открыть для зрителей</h3></div><span class="decor-star">✦</span></div>
@@ -95,12 +101,31 @@
             <p class="tiny muted" id="share-hint">Публикация доступна только для аккаунтов Firebase.</p>
           </section>
         </div>
-        <section class="panel log-panel"><div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ПРЕДСТАВЛЕНИЯ</div><h3>Последние ходы</h3></div></div><div id="history-list" class="history-list"></div></section>
+
         <section class="panel next-panel"><div class="panel-heading"><div><div class="eyebrow">ЧТО ВПЕРЕДИ</div><h3>Ближайшие остановки</h3></div></div><div id="next-stop-list" class="next-stop-list"></div></section>
-        <footer class="footer">FARS — Гастроли проклятых · Интерфейс версии 0.5</footer>
+<section class="panel games-panel" aria-labelledby="games-heading">
+  <div class="panel-heading"><div><div class="eyebrow">АФИША ИСПЫТАНИЙ</div><h3 id="games-heading">Игры сезона</h3></div><span class="decor-star">✦</span></div>
+  <p class="muted">Игры и условия определяются организатором FARS. Здесь можно увидеть обязательные номера и варианты зрительских аукционов.</p>
+  <div id="season-game-list" class="season-game-list"></div>
+</section>
+<section class="panel season-statistics" aria-labelledby="statistics-heading">
+  <div class="panel-heading"><div><div class="eyebrow">ЛЕТОПИСЬ ГАСТРОЛЕЙ</div><h3 id="statistics-heading">Статистика сезона</h3></div><span class="decor-star">✦</span></div>
+  <div class="progress-line"><div id="season-progress-bar" class="progress-line-fill"></div></div>
+  <p id="season-progress-text" class="muted">Прогресс: 0 из 18 клеток</p>
+  <div id="season-metrics" class="season-metrics"></div>
+</section>
+<section class="panel settings-panel" aria-labelledby="settings-heading">
+  <div class="panel-heading"><div><div class="eyebrow">ЛИЧНАЯ ЛОЖА</div><h3 id="settings-heading">Настройки и доступ</h3></div><span class="decor-star">✦</span></div>
+  <p>Для безопасности правила игры, обязательные задания и состав аукционов нельзя изменить через обычный кабинет.</p>
+  <p class="muted">Публикация зрительской афиши управляется на этой странице. Зрители видят только ход игры — без кнопок управления.</p>
+  <div class="event-notice">Вход: Firebase Authentication. Данные сезонов доступны владельцу аккаунта; открытый просмотр публикуется отдельно.</div>
+</section>
+        </div>
+        <footer class="footer">FARS — Гастроли проклятых · Интерфейс версии 0.6</footer>
       </main>
     </div>
   </div>
   <script type="module" src="./app.mjs"></script>
+  <script type="module" src="./ui-pages.mjs"></script>
 </body>
 </html>

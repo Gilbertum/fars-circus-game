@@ -190,3 +190,214 @@ h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif}
 
 /* Public viewer must retain its phase and current-game description. */
 .viewer-board .board-facts{display:flex}
+
+/* ==============================================================
+   v0.6 • Asset bindings, readable controls and true screen layout
+   These rules do not alter authentication, Firebase or board geometry.
+   ============================================================== */
+:root{--fars-focus:#ffe4ae}
+.fars-global{
+  min-height:102px;
+  padding-top:16px;padding-bottom:16px;
+  background:linear-gradient(90deg,#1b0c14ed,#2a101ce3 50%,#160913eb),
+   url('./assets/ui/stage-atmosphere.png') center 28%/cover no-repeat;
+}
+.fars-global::before{
+  content:"";position:absolute;inset:0 0 auto;height:18px;
+  background:linear-gradient(90deg,#290d14b0,transparent,#290d14b0),
+   url('./assets/ui/top-canopy.png') center 0/auto 190px no-repeat;
+  pointer-events:none;opacity:.9
+}
+.global-home{flex:0 0 auto;min-width:0;display:block;width:clamp(144px,13vw,210px)}
+.global-logo-img{display:block;width:100%;height:78px;object-fit:contain;filter:drop-shadow(0 3px 8px #0b050a)}
+.global-nav{gap:3px}
+.global-nav a{font-size:clamp(10px,.85vw,13px);padding:13px clamp(6px,1.1vw,20px);border-radius:4px}
+.global-status{flex:0 0 auto;max-width:160px;overflow:hidden}
+.global-status>span:last-child{overflow:hidden;text-overflow:ellipsis}
+.global-star{border:0;background:transparent url('./assets/ui/star-medallion.png') center/contain no-repeat}
+.side-brand-label{
+ color:#f7d4a3;letter-spacing:3px;font:700 15px Georgia,serif;
+ padding:8px 5px 20px;border-bottom:1px solid #734834;text-align:center
+}
+.sidebar{padding-bottom:198px}
+.sidebar:after{height:180px;bottom:0;background-size:contain;background-position:bottom center}
+.sidebar .side-block{background:
+ linear-gradient(#28131ce8,#28131cd9),url('./assets/ui/paper-texture.png') center/cover no-repeat}
+.sidebar .side-bottom{z-index:2}
+.main-content{
+ display:grid;grid-template-columns:minmax(0,1.7fr) minmax(320px,1fr);
+ grid-template-rows:auto auto auto;grid-template-areas:"stats stats" "left right" "footer footer";
+ gap:15px 17px;padding-top:19px
+}
+.stats-row{grid-area:stats;grid-column:auto;grid-row:auto}
+.dashboard-left{grid-area:left;min-width:0;display:flex;flex-direction:column;gap:15px;align-self:start}
+.dashboard-right{grid-area:right;min-width:0;display:flex;flex-direction:column;gap:15px;align-self:start}
+.dashboard-left>.board-header,.dashboard-left>.board-frame,.dashboard-left>.log-panel,
+.dashboard-right>.content-grid,.dashboard-right>.next-panel{grid-column:auto;grid-row:auto;margin:0}
+.dashboard-left>.board-header{width:100%;min-height:76px;padding:12px 17px;
+ background:linear-gradient(90deg,#37121cbd,#2a101ad0),
+   url('./assets/ui/title-ribbon.png') center/100% 100% no-repeat;
+ border:2px solid #ae744b;box-shadow:0 5px 13px #0007}
+.dashboard-left .board-header h3{font-size:30px}
+.dashboard-left .board-frame{width:100%;margin:0}
+.dashboard-right .content-grid{display:flex;flex-direction:column;width:100%;gap:15px}
+.dashboard-right .content-grid .panel{width:100%;flex:none}
+.dashboard-right .control-panel{min-height:0}
+.dashboard-right .control-panel:has(.auction-options){background:
+ linear-gradient(#f4d7a9c4,#edc996e5),url('./assets/ui/paper-texture.png') center/cover}
+.dashboard-right .next-panel{width:100%}
+.footer{grid-area:footer;grid-row:auto;grid-column:auto}
+.log-panel,.next-panel{min-width:0}
+.log-panel .history-list{max-height:340px}
+.panel{background-image:linear-gradient(150deg,#321925,#180d16)}
+.panel:focus-within{outline-color:#e3b475}
+.btn.ghost{
+ color:#46221a!important;background:#e5bc81!important;
+ border:2px solid #b78049;
+ border-image-source:url('./assets/ui/button-cream.png');
+ text-shadow:none!important;box-shadow:inset 0 0 0 1px #fee5bb;
+ font-weight:800
+}
+.btn.ghost:hover{color:#28120f!important;background:#f1d4a5!important}
+.btn.ghost.danger-text{color:#762c2a!important}
+.btn.primary{color:#ffe7be!important;background:#6f1726;
+ text-shadow:0 1px 2px #310910;font-weight:800}
+.btn:focus-visible,.global-nav a:focus-visible,.season-item:focus-visible{
+ outline:3px solid var(--fars-focus);outline-offset:2px
+}
+.control-panel .auction-option:has(input:checked){outline:2px solid #8b3e25}
+.control-panel .auction-option input{accent-color:#7e242a}
+.control-panel .btn.primary:disabled{color:#c7a781!important}
+.control-panel label{color:#573223}
+.control-panel input:not([type=checkbox]):not([type=radio]){
+ background:#ffedd0;color:#4d261d;border-color:#b47e50
+}
+.about-panel .share-actions{display:flex;gap:10px;flex-wrap:wrap}
+.share-actions .btn{white-space:normal;overflow-wrap:anywhere}
+.about-panel .muted{color:#d1b6a0}
+.next-stop{background-color:#27131d}
+.next-stop span{overflow-wrap:anywhere}
+.dashboard-right>.games-panel,.dashboard-right>.season-statistics,.dashboard-right>.settings-panel{display:none}
+.games-panel h4{
+ margin:20px 0 10px;font:700 21px Georgia,serif;color:#f2c48c
+}
+.season-game-list{display:grid;gap:9px}
+.game-item{
+ display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:12px;
+ padding:12px;border:1px solid #a47244;border-radius:6px;
+ background:linear-gradient(110deg,#542434,#2b141e);min-height:65px
+}
+.game-item strong{display:block;color:#ffe2b8;overflow-wrap:anywhere}
+.game-item small{display:block;margin-top:4px;color:#cdb3a3;font-size:11px;line-height:1.5}
+.game-stage{background:#7b2630;color:#ffe4b7;border:2px solid #d7a46f;
+ width:45px;height:43px;display:grid;place-items:center;
+ font:700 20px Georgia,serif;border-radius:5px}
+.game-state{font:700 11px Georgia,serif;color:#e8c091}
+.auction-item .game-stage{background:#815222}
+.progress-line{height:19px;border:2px solid #bb8654;border-radius:100px;
+ background:#210f16;overflow:hidden;margin:17px 0 9px}
+.progress-line-fill{height:100%;width:0;transition:width .35s ease;
+ background:linear-gradient(90deg,#a24532,#f4cb78)}
+.season-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.metric{background:#2c1520;border:1px solid #8f613f;border-radius:6px;padding:18px 15px}
+.metric span{font:700 12px Georgia,serif;color:#c9a084;display:block}
+.metric strong{font:700 34px Georgia,serif;color:#ffe0a5;display:block;margin-top:8px}
+.settings-panel{border-image-source:url('./assets/ui/panel-red.png')}
+.settings-panel p{line-height:1.8}
+.settings-panel .event-notice{color:#f2d2af}
+body[data-view="map"] .dashboard-left .log-panel,
+body[data-view="map"] .dashboard-right .content-grid{display:none}
+body[data-view="games"] .dashboard-left,
+body[data-view="settings"] .dashboard-left{display:none}
+body[data-view="games"] .dashboard-right,
+body[data-view="settings"] .dashboard-right{grid-column:1/-1;display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+body[data-view="games"] .dashboard-right .games-panel{display:block}
+body[data-view="games"] .dashboard-right .content-grid .about-panel,
+body[data-view="games"] .dashboard-right .next-panel,
+body[data-view="games"] .dashboard-right .season-statistics,
+body[data-view="games"] .dashboard-right .settings-panel{display:none}
+body[data-view="statistics"] .dashboard-left .board-header,
+body[data-view="statistics"] .dashboard-left .board-frame,
+body[data-view="statistics"] .dashboard-left .board-zoom-dialog,
+body[data-view="statistics"] .dashboard-right .content-grid,
+body[data-view="statistics"] .dashboard-right .next-panel{display:none}
+body[data-view="statistics"] .dashboard-right .season-statistics{display:block}
+body[data-view="settings"] .dashboard-right .content-grid .control-panel,
+body[data-view="settings"] .dashboard-right .next-panel{display:none}
+body[data-view="settings"] .dashboard-right .settings-panel{display:block}
+body[data-view="settings"] .stats-row{display:none}
+body[data-view="map"] .dashboard-right .next-panel{display:block}
+body[data-view="map"] .dashboard-left .board-header{min-height:76px}
+body[data-view="map"] .dashboard-left{gap:13px}
+body[data-view="season"] .dashboard-right .games-panel,
+body[data-view="season"] .dashboard-right .season-statistics,
+body[data-view="season"] .dashboard-right .settings-panel{display:none}
+@media(min-width:1500px){
+ .main-content{grid-template-columns:minmax(0,1.8fr) minmax(360px,.97fr)}
+ .global-logo-img{height:83px}
+}
+@media(max-width:1150px){
+ .app-shell{grid-template-columns:205px minmax(0,1fr)}
+ .main-content{grid-template-columns:minmax(0,1fr)}
+ .stats-row{grid-area:auto;grid-column:1}
+ .dashboard-left,.dashboard-right{grid-column:1;grid-area:auto}
+ .dashboard-left{grid-row:2}.dashboard-right{grid-row:3}
+ .footer{grid-row:4;grid-column:1;grid-area:auto}
+ body[data-view="games"] .dashboard-right,
+ body[data-view="settings"] .dashboard-right{grid-column:1;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:820px){
+ .app-shell{display:block}
+ .fars-global{min-height:100px;gap:7px}
+ .global-home{width:130px}
+ .global-logo-img{height:64px}
+ .global-nav{order:3;flex:1 0 100%;justify-content:flex-start;gap:3px}
+ .global-nav a{font-size:11px;padding:9px 11px}
+ .sidebar{min-height:0;padding:13px 14px}
+ .sidebar:after{display:none}
+ .side-brand-label{display:none}
+ .dashboard-right .content-grid{display:flex;flex-direction:column}
+ body[data-view="games"] .dashboard-right,
+ body[data-view="settings"] .dashboard-right{grid-template-columns:1fr}
+ .main-content{display:flex;flex-direction:column;gap:12px}
+ .stats-row,.dashboard-left,.dashboard-right{width:100%}
+ .footer{width:100%}
+}
+@media(max-width:520px){
+ .global-logo-img{height:52px}
+ .fars-global{padding:8px 12px}
+ .global-status{max-width:115px}
+ .global-nav{overflow-x:auto}
+ .game-item{grid-template-columns:40px minmax(0,1fr);gap:9px}
+ .game-state{grid-column:2}
+ .season-metrics{grid-template-columns:1fr 1fr}
+ .metric{padding:12px}
+ .metric strong{font-size:26px}
+ .dashboard-left .board-header h3{font-size:24px}
+ .dashboard-left>.board-header{min-height:67px;padding:8px}
+}
+
+/* Ensure the desktop named grid areas do not create a phantom second column
+   on tablets. Keep decorative imagery inside its actual panel dimensions. */
+@media(max-width:1150px){
+ .main-content{grid-template-areas:none;grid-template-rows:none}
+ .dashboard-left,.dashboard-right,.stats-row,.footer{grid-area:auto}
+}
+@media(max-width:820px){
+ .dashboard-left,.dashboard-right{flex:0 0 auto}
+ .panel{max-width:100%}
+}
+
+/* Explicit placement wins over the legacy grid-column/grid-row values.
+   Reset to automatic placement only when the dashboard collapses to 1 column. */
+@media(min-width:1151px){
+ .main-content>.stats-row{grid-area:stats}
+ .main-content>.footer{grid-area:footer}
+}
+@media(min-width:821px) and (max-width:1150px){
+ .main-content>.stats-row{grid-area:auto;grid-column:1}
+ .main-content>.dashboard-left{grid-area:auto;grid-row:auto;grid-column:1}
+ .main-content>.dashboard-right{grid-area:auto;grid-row:auto;grid-column:1}
+ .main-content>.footer{grid-area:auto;grid-column:1}
+}
