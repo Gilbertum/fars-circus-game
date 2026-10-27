@@ -154,3 +154,25 @@ body[data-view="games"] .games-panel,
 body[data-view="statistics"] .season-statistics{
   border-color:#b17d4b;background-color:#21121b
 }
+
+/* Distinct auction curtain. This is an intentionally blanked version of the
+   user-approved artwork: dummy titles/numbers are removed, live Firebase
+   options sit over clean paper. */
+.dashboard-right .control-panel[data-phase="auction"]{
+  background:
+   url('./assets/ui-v07/auction-blank.png') center/100% 100% no-repeat,
+   linear-gradient(155deg,#f9e6bc,#d8ad75)!important;
+  padding-top:clamp(125px,10.8vw,155px)!important;
+  padding-bottom:clamp(63px,5vw,88px)!important
+}
+.dashboard-right .control-panel[data-phase="auction"] .panel-heading .eyebrow{
+  color:#8a4a24
+}
+.dashboard-right .control-panel[data-phase="auction"] .auction-options{
+  margin-top:12px
+}
+@media(max-width:600px){
+  .dashboard-right .control-panel[data-phase="auction"]{
+     padding-top:115px!important
+  }
+}
