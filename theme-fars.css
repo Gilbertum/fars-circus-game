@@ -388,3 +388,16 @@ body[data-view="season"] .dashboard-right .settings-panel{display:none}
  .dashboard-left,.dashboard-right{flex:0 0 auto}
  .panel{max-width:100%}
 }
+
+/* Explicit placement wins over the legacy grid-column/grid-row values.
+   Reset to automatic placement only when the dashboard collapses to 1 column. */
+@media(min-width:1151px){
+ .main-content>.stats-row{grid-area:stats}
+ .main-content>.footer{grid-area:footer}
+}
+@media(min-width:821px) and (max-width:1150px){
+ .main-content>.stats-row{grid-area:auto;grid-column:1}
+ .main-content>.dashboard-left{grid-area:auto;grid-row:auto;grid-column:1}
+ .main-content>.dashboard-right{grid-area:auto;grid-row:auto;grid-column:1}
+ .main-content>.footer{grid-area:auto;grid-column:1}
+}
