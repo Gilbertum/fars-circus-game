@@ -1,0 +1,178 @@
+/* FARS v0.7 — visual integration of the approved illustrated PNG templates.
+   Decor only. All variable text is still HTML, not printed on the asset. */
+:root{
+  --fars-v7-paper:#f3d7a8;
+  --fars-v7-text:#472017;
+  --fars-v7-border:#e7b768;
+}
+body{background-color:#150b11}
+.sidebar .side-block{border-color:#ae6f42}
+.sidebar .avatar{
+  font-size:0!important;color:transparent!important;
+  border:none!important;border-radius:50%!important;
+  width:52px!important;height:52px!important;min-width:52px!important;
+  background:
+    url('./assets/ui-v07/profile-crest.png') center 41%/165% auto no-repeat,
+    radial-gradient(circle at center,#582b31,#200d18)!important;
+  box-shadow:0 0 0 2px #cb9856,0 2px 14px #0e060a;
+}
+/* A tall, full-color artwork behind the existing live current-task controls.
+   The picture carries a permanent decorative 'Основная панель' heading;
+   the dynamic heading (Бросок судьбы / Золотой билет / etc.) is rendered on
+   the parchment below it. */
+.dashboard-right .control-panel{
+  isolation:isolate;
+  border:0!important;border-image:none!important;outline:0!important;
+  border-radius:0!important;box-shadow:none!important;
+  background:
+    url('./assets/ui-v07/panel-main.png') center/100% 100% no-repeat,
+    linear-gradient(155deg,#f9e6bc,#d8ad75)!important;
+  color:var(--fars-v7-text)!important;
+  padding:clamp(142px,12.3vw,191px) clamp(27px,3vw,49px) clamp(80px,6vw,105px)!important;
+  min-height:610px;
+  overflow:visible;
+}
+.dashboard-right .control-panel::before,
+.dashboard-right .control-panel::after{display:none!important}
+.dashboard-right .control-panel .panel-heading{margin:0 0 10px}
+.dashboard-right .control-panel .panel-heading .eyebrow{
+  color:#79462b!important;letter-spacing:2px;font-size:11px
+}
+.dashboard-right .control-panel .panel-heading h3{
+  font:700 clamp(30px,2.4vw,42px)/1.07 Georgia,serif;
+  color:#5a241f!important;text-shadow:0 1px #ffebc3;overflow-wrap:anywhere
+}
+.dashboard-right .control-panel .panel-heading .decor-star{color:#a37338}
+.dashboard-right .control-panel #action-description{color:#6b3d2c!important;font-size:14px;line-height:1.65}
+.dashboard-right .control-panel .chip{
+  color:#6e321d;border-color:#b77a4d;
+  background:linear-gradient(#fde6bc,#e6c28e);
+  font-size:11px
+}
+.dashboard-right .control-panel .action-card{
+  border:1px solid #b68252;border-radius:6px;
+  background:linear-gradient(125deg,#faebca,#edc48e);
+  padding:18px;color:#4b281e;
+  box-shadow:inset 0 0 0 2px #fff0ccaa
+}
+.dashboard-right .control-panel .action-card strong{font:700 22px Georgia,serif}
+.dashboard-right .control-panel .action-card p{color:#633b2e}
+.dashboard-right .control-panel .event-notice{
+  margin-top:14px;background:#efd1a2;
+  border:1px solid #bc8a55;
+  color:#6a3725!important;line-height:1.6
+}
+.dashboard-right .control-panel .auction-options{display:flex;flex-direction:column;gap:9px}
+.dashboard-right .control-panel .auction-option{
+  border:1px solid #c58c51;background:#f7e3bd;
+  color:#51261a;border-radius:7px;min-height:66px;padding:12px;
+  box-shadow:0 2px 4px #703b2020;
+}
+.dashboard-right .control-panel .auction-option:has(input:checked){
+  border-color:#8e362a;background:#eac58b;
+  box-shadow:0 0 0 2px #8c312b inset
+}
+.dashboard-right .control-panel .auction-option strong{font-size:14px;line-height:1.5}
+.dashboard-right .control-panel .auction-option small{color:#784d39}
+.dashboard-right .control-panel .btn.primary{
+  min-height:53px;
+  width:100%;
+  padding:12px 18px;
+  color:#ffe3ac!important;
+  background:linear-gradient(#a92a35,#600d1e)!important;
+  border:3px ridge #d6a05d!important;
+  border-image-source:url('./assets/ui/button-red.png')!important;
+  border-image-slice:32 fill!important;
+  border-image-width:15px!important;
+  border-radius:5px;
+  font:700 17px Georgia,serif;
+  text-shadow:0 2px 2px #360917;
+}
+.dashboard-right .control-panel .btn.primary:hover{filter:brightness(1.12)}
+.dashboard-right .control-panel .btn:focus-visible{
+  outline:3px solid #762d28;outline-offset:3px
+}
+/* Replace the old after-element dice with the user's separate illustrated PNG. */
+.dashboard-right .control-panel .big-roll::after{display:none!important}
+.fars-dice-roll{
+  display:grid!important;
+  grid-template-columns:minmax(120px,43%) minmax(0,1fr);
+  align-items:center!important;gap:12px!important;
+  padding:8px 0 12px;
+}
+.fars-dice-image{
+  display:block;
+  width:100%;min-height:150px;
+  aspect-ratio:1/1;
+  background:
+    url('./assets/ui-v07/dice-luck.png') center/contain no-repeat,
+    url('./assets/ui/dice.png') center/65% 65% no-repeat;
+  filter:drop-shadow(0 6px 12px #7a341e70);
+  animation:fars-v7-glimmer 4s ease-in-out infinite
+}
+.fars-dice-info{min-width:0;display:flex;flex-direction:column;gap:11px}
+.fars-roll-result{display:flex;flex-direction:column;gap:2px}
+.fars-roll-result strong{font:700 49px/1 Georgia,serif;color:#811c26}
+.fars-roll-result span{font:600 12px/1.55 Georgia,serif;color:#754b39}
+@keyframes fars-v7-glimmer{50%{filter:drop-shadow(0 4px 19px #efa83caa);transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.fars-dice-image{animation:none}}
+/* Bigger screen: illustrated control panel is allowed to grow in height for
+   an auction, without distorting adjacent map/history columns. */
+@media(min-width:1500px){
+  .dashboard-right .control-panel{min-height:700px}
+}
+@media(max-width:1350px){
+  .dashboard-right .control-panel{
+    padding:clamp(122px,13vw,171px) 27px 78px!important;
+    min-height:600px
+  }
+}
+@media(max-width:1150px){
+  .dashboard-right .control-panel{
+    background-size:100% 100%,cover!important;
+    padding:clamp(145px,18vw,205px) clamp(35px,6vw,65px) 100px!important
+  }
+}
+@media(max-width:600px){
+  .dashboard-right .control-panel{
+    min-height:560px;
+    padding:clamp(105px,25vw,155px) 25px 75px!important
+  }
+  .dashboard-right .control-panel .panel-heading h3{font-size:30px}
+  .fars-dice-roll{grid-template-columns:minmax(95px,40%) minmax(0,1fr)}
+  .fars-dice-image{min-height:95px}
+  .fars-roll-result strong{font-size:42px}
+}
+@media(max-width:360px){
+  .dashboard-right .control-panel{padding-left:20px!important;padding-right:20px!important}
+  .fars-dice-roll{grid-template-columns:1fr 1fr}
+}
+/* In light of user feedback: keep supporting panels readable, and put
+   the artwork in the primary interactive card rather than turning every
+   section into a conflicting banner. */
+body[data-view="games"] .games-panel,
+body[data-view="statistics"] .season-statistics{
+  border-color:#b17d4b;background-color:#21121b
+}
+
+/* Distinct auction curtain. This is an intentionally blanked version of the
+   user-approved artwork: dummy titles/numbers are removed, live Firebase
+   options sit over clean paper. */
+.dashboard-right .control-panel[data-phase="auction"]{
+  background:
+   url('./assets/ui-v07/auction-blank.png') center/100% 100% no-repeat,
+   linear-gradient(155deg,#f9e6bc,#d8ad75)!important;
+  padding-top:clamp(125px,10.8vw,155px)!important;
+  padding-bottom:clamp(63px,5vw,88px)!important
+}
+.dashboard-right .control-panel[data-phase="auction"] .panel-heading .eyebrow{
+  color:#8a4a24
+}
+.dashboard-right .control-panel[data-phase="auction"] .auction-options{
+  margin-top:12px
+}
+@media(max-width:600px){
+  .dashboard-right .control-panel[data-phase="auction"]{
+     padding-top:115px!important
+  }
+}

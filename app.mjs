@@ -89,10 +89,10 @@ function drawBoard(s){
       +'<span>'+String(i).padStart(2,'0')+'</span><small>'+esc(CELL_TITLES[type])+'</small></div>';
   }).join('');
 }
-function drawActions(s){const action=$('action-controls'),desc=$('action-description');$('action-title').textContent=CELL_TITLES[CELLS[s.position]];desc.textContent=s.lastEvent||'Представление начинается.';
+function drawActions(s){const action=$('action-controls'),desc=$('action-description');document.querySelector('.control-panel').dataset.phase=s.phase;$('action-title').textContent=CELL_TITLES[CELLS[s.position]];desc.textContent=s.lastEvent||'Представление начинается.';
   if(s.phase==='ready'){
     $('action-title').textContent='Бросок судьбы';
-    action.innerHTML=`<div class="big-roll"><div class="die-view">${s.lastRoll?.result??'?'}</div><div><div class="chip">КУБИК D3</div><div class="muted">${s.lastRoll?`Последний бросок: ${s.lastRoll.result}`:'Первый бросок ждёт тебя'}</div></div></div><label class="small-select"><input id="lucky-roll" type="checkbox" ${s.tickets?'':'disabled'}> Потратить жетон удачи: бросить дважды, взять большее (${s.tickets})</label><button class="btn primary" data-action="roll">✦ Бросить кубик</button><div class="event-notice">${esc(s.lastEvent)}</div>`;
+    action.innerHTML=`<div class="big-roll fars-dice-roll"><span class="fars-dice-image" role="img" aria-label="Алый цирковой кубик с золотыми звёздами"></span><div class="fars-dice-info"><div class="chip">КУБИК D3</div><div class="fars-roll-result"><strong>${s.lastRoll?.result??'?'}</strong><span>${s.lastRoll?'Последний бросок':'Бросок судьбы'} · 1–3</span></div></div></div><label class="small-select"><input id="lucky-roll" type="checkbox" ${s.tickets?'':'disabled'}> Потратить жетон удачи: бросить дважды, взять большее (${s.tickets})</label><button class="btn primary" data-action="roll">✦ Бросить кубик</button><div class="event-notice">${esc(s.lastEvent)}</div>`;
   }else if(s.phase==='playing'){
     const g=s.currentTask||{};
     action.innerHTML=`<div class="action-card"><strong>${esc(g.title||'Игра не назначена')}</strong><p>${esc(g.goal||'Без задания')}</p><span class="chip">${esc(g.time||'Без лимита')}</span></div><button class="btn primary" data-action="game-done">✓ Игра пройдена</button><div class="event-notice">После завершения игры можно будет бросить кубик снова. Задание определяется организатором сезона.</div>`;
