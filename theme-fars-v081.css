@@ -54,7 +54,7 @@
   font:700 15px Georgia,serif;
   text-shadow:0 0 7px #e6a45d88;
   background:radial-gradient(circle,#622a36 0%,#250e18 76%);
-  z-index:-1;
+  z-index:0;
 }
 .global-status #top-streamer-name {
   min-width:0;
