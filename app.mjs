@@ -1,4 +1,5 @@
 import {placeBoardToken} from './board-map.mjs';
+import {renderChronicle,CHRONICLE_FILTERS} from './chronicle-ui.mjs';
 import {renderFateChoices} from './fate-ui.mjs';
 import {renderAuctionControls,selectedAuctionTitle} from './auction-ui.mjs';
 import {CELLS,CELL_TITLES,THEMES,makeSeason,makeId,roll,finishGame,pickAuction,chooseReward,undo,updateGame,updateAuction,changeTheme,renameSeason,validateSeason} from './game.mjs';
@@ -7,7 +8,7 @@ import {configured,connectFirebase,localStorageApi} from './storage.mjs';
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const visible=(id,v)=>{$(id).hidden=!v;};
-let backend=null,store=null,seasons=[],selected=null,nickname='Стример',demo=false,authRegister=false,busy=false,toastTimeout=null;
+let backend=null,store=null,seasons=[],selected=null,nickname='Стример',demo=false,authRegister=false,busy=false,toastTimeout=null,chronicleFilter='all';
 function message(str){const el=$('toast');el.textContent=str;el.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('show'),5200);}
 function errorText(e){const c=e?.code;if(c==='auth/email-already-in-use')return 'Такая почта уже зарегистрирована.';if(c==='auth/invalid-email')return 'Проверь адрес электронной почты.';if(['auth/invalid-credential','auth/wrong-password','auth/user-not-found'].includes(c))return 'Неверная почта или пароль.';if(c==='auth/weak-password')return 'Пароль слишком слабый (нужно минимум 6 символов).';if(c==='auth/unauthorized-domain')return 'Добавь домен сайта в Authentication → Settings → Authorized domains.';if(c==='permission-denied')return 'Firestore запретил доступ. Проверь правила безопасности из firestore.rules.';return e?.message||'Неизвестная ошибка';}
 function phaseName(p){return {ready:'Можно бросать',playing:'Игра в процессе',auction:'Идёт аукцион',choice:'Выбор события',finished:'Сезон завершён'}[p]||p;}
@@ -26,7 +27,7 @@ function render(){const s=selectedSeason();if(!s)return;
   $('board-title').textContent='Манеж испытаний';
   $('board-caption-position').textContent=s.phase==='finished'?'ЗАНАВЕС ОПУЩЕН':`КЛЕТКА ${String(s.position).padStart(2,'0')} · ${CELL_TITLES[CELLS[s.position]].toUpperCase()}`;
   
-  drawBoard(s);drawActions(s);drawHistory(s);drawUpcoming(s);drawSeasonDetails(s);updateShareUI(s);
+  drawBoard(s);drawActions(s);drawHistory(s);drawUpcoming(s);drawSeasonDetails(s);drawChronicle(s);updateShareUI(s);
 }
 async function mutate(fn){if(busy)return;const before=selectedSeason();try{busy=true;const next=fn(before);if(!validateSeason(next))throw new Error('Некорректное состояние сезона.');$('save-status').textContent='◌ Сохранение…';await store.save(next);if(next.published&&store.publish)await store.publish(next,nickname);seasons=seasons.map(s=>s.id===next.id?next:s);$('save-status').textContent='● Сохранено';render();}catch(e){$('save-status').textContent='! Ошибка сохранения';message(errorText(e));}finally{busy=false;}}
 
@@ -77,6 +78,21 @@ function drawSeasonDetails(s){
  metrics.innerHTML=numbers.map(([k,v])=>'<div class="metric"><span>'+esc(k)+
  '</span><strong>'+esc(v)+'</strong></div>').join('');
 }
+
+function drawChronicle(s){
+ const target=$('chronicle-root');
+ if(target)target.innerHTML=renderChronicle(s,chronicleFilter);
+}
+
+$('chronicle-root').addEventListener('click',event=>{
+ const button=event.target.closest('[data-chronicle-filter]');
+ if(!button)return;
+ const next=button.dataset.chronicleFilter;
+ if(!CHRONICLE_FILTERS.some(filter=>filter.id===next))return;
+ chronicleFilter=next;
+ const season=selectedSeason();
+ if(season)drawChronicle(season);
+});
 
 function drawBoard(s){
   // Art and all nineteen cells live in one static image.
