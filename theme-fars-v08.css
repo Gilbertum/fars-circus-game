@@ -1,0 +1,175 @@
+/* FARS v0.8 — measured artwork slicing instead of stretched full-panel bitmap.
+   panel-main.png: 780x1040, header ends at original y=300.
+   auction-blank.png: 800x1000, header ends at original y=190.
+   The widths/spacing track each panel's CSS container width. */
+.dashboard-right>.content-grid{
+  container-type:inline-size;
+  width:100%;
+}
+.dashboard-right .control-panel{
+  box-sizing:border-box!important;
+  position:relative;
+  display:block;
+  width:100%;
+  overflow:visible!important;
+  isolation:isolate;
+  border:1px solid transparent!important;
+  border-radius:0!important;
+  border-image-source:url('./assets/ui-v07/panel-main.png')!important;
+  border-image-slice:300 78 180 78 fill!important;
+  border-image-width:calc(100cqw * .385) calc(100cqw * .100) calc(100cqw * .231) calc(100cqw * .100)!important;
+  border-image-outset:0!important;
+  border-image-repeat:stretch!important;
+  background:transparent!important;
+  outline:none!important;
+  box-shadow:none!important;
+  min-height:clamp(535px,133.3cqw,1040px)!important;
+  padding:calc(100cqw * .385 + 13px) calc(100cqw * .100 + 10px)
+          calc(100cqw * .231 + 13px)!important;
+}
+.dashboard-right .control-panel[data-phase="auction"]{
+  border-image-source:url('./assets/ui-v07/auction-blank.png')!important;
+  border-image-slice:190 88 115 88 fill!important;
+  border-image-width:calc(100cqw * .240) calc(100cqw * .110) calc(100cqw * .145) calc(100cqw * .110)!important;
+  min-height:clamp(545px,125cqw,1000px)!important;
+  padding:calc(100cqw * .240 + 15px) calc(100cqw * .110 + 10px)
+          calc(100cqw * .145 + 16px)!important;
+}
+.dashboard-right .control-panel>*{
+  position:relative;
+  z-index:1;
+}
+.dashboard-right .control-panel .panel-heading{
+  display:flex;
+  gap:8px;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin:0 0 10px!important;
+}
+.dashboard-right .control-panel .panel-heading .eyebrow{
+  color:#875032!important;
+  font-size:10px!important;
+  letter-spacing:1.3px!important;
+}
+.dashboard-right .control-panel .panel-heading h3{
+  color:#56261e!important;
+  font:700 clamp(24px,2vw,33px)/1.15 Georgia,serif!important;
+  overflow-wrap:anywhere;
+  margin:6px 0 10px!important;
+  text-shadow:none!important;
+}
+.dashboard-right .control-panel #action-description{
+  color:#6b402d!important;
+  font:500 13px/1.55 Arial,sans-serif;
+  overflow-wrap:anywhere;
+  margin:0 0 14px;
+}
+.dashboard-right .control-panel .panel-heading .decor-star{
+  display:none;
+}
+.dashboard-right .control-panel .chip{
+  font-size:11px;
+  white-space:normal;
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .auction-options{gap:8px;margin:8px 0 12px}
+.dashboard-right .control-panel .auction-option{
+  display:flex;align-items:center;gap:10px;min-height:57px;
+  margin:0;padding:9px 11px;background:#f7e2bc;color:#50291d;
+  border:1px solid #c08c5a;border-radius:6px;
+}
+.dashboard-right .control-panel .auction-option strong,
+.dashboard-right .control-panel .auction-option small{
+  overflow-wrap:anywhere;line-height:1.4;
+}
+.dashboard-right .control-panel .big-roll{
+  display:grid!important;
+  grid-template-columns:minmax(100px,45%) minmax(0,1fr)!important;
+  width:100%;gap:10px!important;
+  margin:8px 0 14px!important;
+}
+.dashboard-right .control-panel .big-roll::after{display:none!important}
+.dashboard-right .control-panel .fars-dice-image{
+  width:100%;min-height:0!important;aspect-ratio:1;
+  background-size:contain,65% 65%;
+}
+.dashboard-right .control-panel .fars-dice-info{
+  display:flex;flex-direction:column;justify-content:center;gap:7px;min-width:0;
+}
+.dashboard-right .control-panel .fars-roll-result strong{
+  font:700 clamp(36px,3vw,56px)/1 Georgia,serif!important;
+  color:#8b2029!important;
+}
+.dashboard-right .control-panel .fars-roll-result span{
+  font-size:12px;line-height:1.45;overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .small-select{
+  display:flex;align-items:flex-start;gap:7px;
+  font-size:12px;line-height:1.55;
+  margin:13px 0!important;
+  color:#60402c!important;
+}
+.dashboard-right .control-panel .small-select input{
+  margin:2px 0 0;flex-shrink:0;accent-color:#7f2030;
+}
+.dashboard-right .control-panel .btn.primary{
+  width:100%;
+  min-height:48px;
+  margin:8px 0 0!important;
+  padding:11px 12px!important;
+  font:700 16px/1.2 Georgia,serif!important;
+  color:#ffe6bc!important;
+}
+.dashboard-right .control-panel .event-notice{
+  font-size:12px;
+  line-height:1.45;
+  margin:11px 0 0!important;
+  padding:10px 12px;
+}
+.dashboard-right .control-panel .action-card{padding:15px}
+.dashboard-right .control-panel .action-buttons{
+  display:flex;flex-wrap:wrap;gap:9px;
+}
+.dashboard-right .control-panel .action-buttons .btn{flex:1 1 150px}
+.sidebar .avatar{
+  /* The v0.7 portrait template cannot be cropped to a tiny circular badge:
+     it contains a whole nameplate. Use the existing star icon here instead. */
+  background:#541926 url('./assets/ui/star-medallion.png') center/contain no-repeat!important;
+  border-radius:50%!important;
+  border:1px solid #c99451!important;
+  box-shadow:0 0 0 2px #2c1219,0 3px 7px #0007;
+}
+@media(max-width:1150px){
+  .dashboard-right>.content-grid{
+    max-width:720px;
+    margin-inline:auto;
+  }
+  .dashboard-right .control-panel{
+    width:100%;
+  }
+}
+@media(max-width:520px){
+  .dashboard-right>.content-grid{max-width:100%}
+  .dashboard-right .control-panel .panel-heading h3{font-size:24px!important}
+  .dashboard-right .control-panel .fars-dice-roll{grid-template-columns:minmax(85px,43%) minmax(0,1fr)!important}
+  .dashboard-right .control-panel .fars-dice-info{gap:5px}
+  .dashboard-right .control-panel .fars-roll-result strong{font-size:39px!important}
+  .dashboard-right .control-panel .event-notice{font-size:11px}
+  .dashboard-right .control-panel .btn.primary{font-size:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard-right .control-panel .fars-dice-image{animation:none}
+}
+/* Older engines without container units retain a readable non-overlapping
+   fallback, rather than overlaying a second heading on the art. */
+@supports not (width:1cqw){
+  .dashboard-right .control-panel{
+    border-image:none!important;
+    background:linear-gradient(#f7e7c5,#eccda0)!important;
+    border:3px double #b4814c!important;
+    border-radius:12px!important;
+    min-height:auto!important;
+    padding:26px!important;
+  }
+}
