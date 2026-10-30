@@ -121,7 +121,7 @@ export function renderChronicle(season,filter='all'){
       <ol class="chronicle-route">${milestoneHtml}</ol>
     </section>
     <section class="chronicle-paper" aria-labelledby="chronicle-awards-heading">
-      <h5 id="chronicle-awards-heading">✦ Награды артистки</h5>
+      <h5 id="chronicle-awards-heading">✦ Награды сезона</h5>
       <ul class="chronicle-awards">${achievementsHtml}</ul>
       <p class="chronicle-awards-note">Награды — виртуальные отметки прогресса. Их получение не начисляет игровых жетонов.</p>
     </section>
