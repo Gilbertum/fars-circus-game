@@ -1,0 +1,181 @@
+/* FARS v0.9 — Golden Ticket auction stage. Live text and controls sit
+   inside the existing illustrated auction parchment (auction-blank.png).
+   No new image files and no changes to Firestore. */
+
+.dashboard-right .control-panel[data-phase="auction"] .fars-auction-kicker{
+  margin:0 0 13px;
+  text-align:center;
+  color:#8d3c2a;
+  font:700 clamp(14px,2.2cqw,17px)/1.2 Georgia,serif;
+  letter-spacing:.08em;
+}
+.dashboard-right .control-panel[data-phase="auction"] .fars-auction-kicker small{
+  display:block;
+  margin-top:4px;
+  letter-spacing:.17em;
+  font-size:10px;
+  font-weight:600;
+  color:#875136;
+}
+.fars-auction-options{
+  padding:0;
+  border:0;
+  min-width:0;
+  margin:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:9px;
+}
+.fars-auction-options .sr-only{
+  position:absolute!important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;border:0;
+}
+.dashboard-right .control-panel .fars-auction-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:clamp(75px,24%,110px) minmax(0,1fr) 16px;
+  gap:12px;
+  align-items:center;
+  min-width:0;
+  border:2px solid #b88955;
+  border-radius:8px;
+  background:linear-gradient(135deg,#ffebc6 0%,#eed1a1 100%);
+  padding:8px 10px 8px 8px;
+  box-shadow:inset 0 0 0 2px #fff2d3a3,0 3px 7px #834c3025;
+  cursor:pointer;
+  color:#4a241b;
+  transition:border-color .18s,background-color .18s,box-shadow .18s,transform .18s;
+}
+.dashboard-right .control-panel .fars-auction-card:hover{
+  border-color:#995027;
+  transform:translateY(-1px);
+}
+.dashboard-right .control-panel .fars-auction-card:focus-within{
+  outline:3px solid #7e2530;
+  outline-offset:2px;
+}
+.dashboard-right .control-panel .fars-auction-card:has(.fars-auction-radio:checked){
+  border-color:#77232d;
+  background:linear-gradient(135deg,#ffedc5 0%,#eac08a 100%);
+  box-shadow:inset 0 0 0 2px #943b37,0 0 15px #7c382940;
+}
+.dashboard-right .control-panel .fars-auction-radio{
+  position:absolute;
+  opacity:0;
+  width:1px;height:1px;
+  margin:0;
+}
+.fars-auction-poster{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  border:2px solid #c38d51;
+  border-radius:5px;
+  background-color:#401621;
+  background-position:center center;
+  background-size:cover;
+  box-shadow:inset 0 0 0 2px #3d1a1e,0 2px 5px #0005;
+}
+.fars-auction-poster::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,#1e10152b,#2e111d8c);
+}
+.fars-auction-poster span{
+  position:relative;
+  z-index:1;
+  color:#fff0c6;
+  font:700 clamp(22px,3.2cqw,35px)/1 Georgia,serif;
+  text-shadow:0 2px 3px #201016,0 0 10px #efb45b;
+}
+.fars-auction-poster.scene-0{background-image:url('./assets/arena-thumb.webp')}
+.fars-auction-poster.scene-1{background-image:url('./assets/backstage-thumb.webp')}
+.fars-auction-poster.scene-2{background-image:url('./assets/carpet-thumb.webp')}
+.fars-auction-copy{display:flex;flex-direction:column;min-width:0;gap:2px}
+.fars-auction-copy .fars-auction-card-label{
+  font:700 9px/1.3 Georgia,serif;
+  color:#a36b3c;
+  letter-spacing:.16em;
+}
+.dashboard-right .control-panel .fars-auction-copy strong{
+  display:block;
+  font:700 clamp(13px,2.2cqw,16px)/1.2 Georgia,serif;
+  color:#4a1916;
+  overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .fars-auction-copy small{
+  display:block;
+  line-height:1.35;
+  color:#664437;
+  font-size:10px;
+  overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .fars-auction-copy .fars-auction-time{
+  margin-top:4px;
+  font-weight:700;
+  color:#8b392e;
+}
+.fars-auction-check{
+  align-self:center;
+  color:#bc946c;
+  font-size:17px;
+  opacity:.5;
+  transition:color .18s,opacity .18s,transform .18s;
+}
+.fars-auction-card:has(.fars-auction-radio:checked) .fars-auction-check{
+  color:#8b1d27;
+  opacity:1;
+  transform:scale(1.25);
+}
+.fars-auction-card.is-unavailable{
+  opacity:.56;
+  cursor:not-allowed;
+}
+.dashboard-right .control-panel .fars-auction-choice{
+  margin:12px 0 6px;
+  text-align:center;
+  font:700 13px/1.4 Georgia,serif;
+  color:#7e292b;
+  overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .fars-auction-confirm{
+  width:100%;
+  margin:6px 0!important;
+  min-height:51px;
+}
+.dashboard-right .control-panel .fars-auction-confirm:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+.dashboard-right .control-panel .fars-auction-disclaimer{
+  text-align:center;
+  margin:12px 0 0;
+  padding:8px 10px;
+  font:500 11px/1.45 Arial,sans-serif;
+  color:#72513d;
+  background:#f1d8aeaa;
+  border:1px solid #b38a5a66;
+  border-radius:6px;
+}
+@media(max-width:520px){
+ .dashboard-right .control-panel .fars-auction-card{
+   grid-template-columns:minmax(62px,25%) minmax(0,1fr) 14px;
+   gap:8px;
+   padding:7px 8px 7px 7px;
+ }
+ .fars-auction-poster{aspect-ratio:1/1}
+ .dashboard-right .control-panel .fars-auction-copy strong{font-size:13px}
+ .dashboard-right .control-panel .fars-auction-copy small{font-size:10px}
+ .dashboard-right .control-panel .fars-auction-disclaimer{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .dashboard-right .control-panel .fars-auction-card,
+ .fars-auction-check{transition:none!important}
+}

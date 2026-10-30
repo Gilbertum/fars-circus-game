@@ -1,4 +1,5 @@
 import {placeBoardToken} from './board-map.mjs';
+import {renderAuctionControls,selectedAuctionTitle} from './auction-ui.mjs';
 import {CELLS,CELL_TITLES,THEMES,makeSeason,makeId,roll,finishGame,pickAuction,chooseReward,undo,updateGame,updateAuction,changeTheme,renameSeason,validateSeason} from './game.mjs';
 import {configured,connectFirebase,localStorageApi} from './storage.mjs';
 
@@ -97,8 +98,7 @@ function drawActions(s){const action=$('action-controls'),desc=$('action-descrip
     const g=s.currentTask||{};
     action.innerHTML=`<div class="action-card"><strong>${esc(g.title||'Игра не назначена')}</strong><p>${esc(g.goal||'Без задания')}</p><span class="chip">${esc(g.time||'Без лимита')}</span></div><button class="btn primary" data-action="game-done">✓ Игра пройдена</button><div class="event-notice">После завершения игры можно будет бросить кубик снова. Задание определяется организатором сезона.</div>`;
   }else if(s.phase==='auction'){
-    const opt=s.auctions[s.position]||[];
-    action.innerHTML=`<div class="chip">АУКЦИОН № ${[6,10,15].indexOf(s.position)+1} · РЕЗУЛЬТАТ ВВОДИТ ВЕДУЩАЯ</div><div class="auction-options">${opt.map((g,i)=>`<label class="auction-option"><input type="radio" name="auction-pick" value="${i}" ${i===0?'checked':''} ${g.title?'':'disabled'}><span><strong>${esc(g.title||'Пустой вариант')}</strong><small>${esc(g.goal)} ${g.time?'· '+esc(g.time):''}</small></span></label>`).join('')}</div><button class="btn primary" data-action="auction-pick">Подтвердить победителя</button><div class="event-notice">Ставки проводятся вне приложения или вручную. Автоподсчёта донатов здесь пока нет.</div>`;
+    action.innerHTML=renderAuctionControls(s.auctions[s.position]||[],s.position);
   }else if(s.phase==='choice'){
     action.innerHTML=`<div class="action-card"><strong>Что выбирает распорядитель?</strong><p>Безопасный бонус или один шаг вперёд. Контрольные клетки не перепрыгиваются.</p></div><div class="action-buttons"><button class="btn primary" data-action="reward-ticket">✦ Забрать жетон</button><button class="btn outline" data-action="reward-step">➜ Шаг вперёд</button></div>`;
   }else{
@@ -116,6 +116,15 @@ $('logout').addEventListener('click',async()=>{if(!demo&&backend){try{await back
 $('season-list').addEventListener('click',e=>{const btn=e.target.closest('[data-season]');if(!btn)return;selected=btn.dataset.season;render();});
 async function newSeason(){const name=prompt('Название нового сезона:','Новые гастроли');if(name===null)return;const s=makeSeason(name);try{await store.save(s);seasons.unshift(s);selected=s.id;render();message('Новый сезон открыт!');}catch(e){message(errorText(e));}}
 $('new-season').addEventListener('click',newSeason);
+$('action-controls').addEventListener('change',event=>{
+ const radio=event.target.closest('input[name="auction-pick"]');
+ if(!radio)return;
+ const season=selectedSeason();
+ if(!season||season.phase!=='auction')return;
+ const title=selectedAuctionTitle(season.auctions[season.position]||[],Number(radio.value));
+ const hint=$('auction-selection-hint');
+ if(hint)hint.textContent='Выбрано: '+title;
+});
 $('action-controls').addEventListener('click',e=>{if(e.target.closest('#new-season-from-end'))newSeason();const btn=e.target.closest('[data-action]');if(!btn)return;const action=btn.dataset.action;if(action==='roll')mutate(s=>roll(s,{lucky:!!$('lucky-roll')?.checked}));if(action==='game-done')mutate(finishGame);if(action==='auction-pick')mutate(s=>pickAuction(s,Number(document.querySelector('input[name="auction-pick"]:checked')?.value??-1)));if(action==='reward-ticket')mutate(s=>chooseReward(s,'ticket'));if(action==='reward-step')mutate(s=>chooseReward(s,'step'));});
 
 function updateShareUI(s){
