@@ -1,0 +1,174 @@
+/* FARS v0.10 — Fate Fork: accessible illustrated reward cards, all copy dynamic.
+   Complements the unchanged 9-slice parchment from v0.8. No PNG uploads needed. */
+
+/* Fix inherited .btn.outline: its pale text was invisible on beige parchment.
+   Also applies to 'New season' and any future secondary control on this panel. */
+.dashboard-right .control-panel .btn.outline,
+.dashboard-right .control-panel button.btn.outline {
+  background:#f5ddb3!important;
+  color:#492017!important;
+  border:2px solid #8e482d!important;
+  box-shadow:inset 0 0 0 1px #fff0d0,0 2px 4px #793e262d!important;
+  text-shadow:none!important;
+  font-weight:800!important;
+  opacity:1;
+}
+.dashboard-right .control-panel .btn.outline:hover {
+  background:#ffe6bd!important;
+  color:#30130d!important;
+  border-color:#733022!important;
+}
+.dashboard-right .control-panel .btn.outline:focus-visible {
+  outline:3px solid #6f2831!important;
+  outline-offset:3px;
+}
+.dashboard-right .control-panel .btn.outline:disabled {
+  opacity:.7!important;
+  color:#55382e!important;
+  cursor:not-allowed;
+}
+
+/* The card choices below are buttons, not decoration. The existing
+   data-action handlers still resolve rewards when one is clicked. */
+.dashboard-right .control-panel .fars-fate {
+  color:#552820;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:0 0 2px;
+}
+.dashboard-right .control-panel .fars-fate-intro {
+  margin:0 auto 4px;
+  max-width:34em;
+  text-align:center;
+  color:#754b39;
+  font:600 13px/1.6 Arial,sans-serif;
+}
+.dashboard-right .control-panel .fars-fate-options {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  align-items:stretch;
+  min-width:0;
+}
+.dashboard-right .control-panel button.fars-fate-card {
+  -webkit-appearance:none;
+  appearance:none;
+  font:inherit;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  gap:9px;
+  width:100%;
+  min-width:0;
+  min-height:182px;
+  padding:13px 12px 15px;
+  border:2px solid #b8814d;
+  border-radius:9px;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:inset 0 0 0 2px #fff2c766,0 5px 13px #57291b30;
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.dashboard-right .control-panel button.fars-fate-card:hover{
+  transform:translateY(-3px);
+  filter:brightness(1.05);
+  box-shadow:inset 0 0 0 2px #ffe8a882,0 8px 15px #54251844;
+}
+.dashboard-right .control-panel button.fars-fate-card:active {
+  transform:translateY(1px);
+}
+.dashboard-right .control-panel button.fars-fate-card:focus-visible {
+  outline:3px solid #722b32;
+  outline-offset:3px;
+}
+.dashboard-right .control-panel button.fars-fate-ticket {
+  background:linear-gradient(155deg,#922c3b,#5b1524)!important;
+  color:#ffe7bd!important;
+  border-color:#b8834e!important;
+}
+.dashboard-right .control-panel button.fars-fate-step {
+  background:linear-gradient(145deg,#ffeac3,#e9c18a)!important;
+  color:#481b16!important;
+  border-color:#a46b36!important;
+}
+.fars-fate-icon {
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:49px;
+  height:49px;
+  border-radius:50%;
+  font:700 25px/1 Georgia,serif;
+  box-shadow:0 2px 9px #1c0c1566, inset 0 0 0 2px #f4ca80;
+}
+.fars-fate-ticket .fars-fate-icon{
+  color:#f7d18c;
+  background:linear-gradient(135deg,#5e1b27,#3c121d);
+}
+.fars-fate-step .fars-fate-icon{
+  color:#5b2021;
+  background:linear-gradient(150deg,#ffe7af,#dba35b);
+}
+.fars-fate-card-body {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+  width:100%;
+}
+.dashboard-right .control-panel .fars-fate-card-body strong{
+  display:block;
+  margin:0;
+  font:700 clamp(17px,2.7cqw,22px)/1.18 Georgia,serif!important;
+  color:inherit!important;
+  text-shadow:none!important;
+  overflow-wrap:anywhere;
+}
+.dashboard-right .control-panel .fars-fate-card-body small{
+  display:block;
+  font:600 11px/1.45 Arial,sans-serif;
+  color:inherit!important;
+  overflow-wrap:anywhere;
+  opacity:.94;
+}
+.dashboard-right .control-panel .fars-fate-ticket .fars-fate-card-body small{
+  color:#ffe8c6!important;
+}
+.dashboard-right .control-panel .fars-fate-step .fars-fate-card-body small{
+  color:#583024!important;
+}
+.dashboard-right .control-panel .fars-fate-notice{
+  padding:10px 12px;
+  margin:0;
+  background:#f4d5a4;
+  color:#623729;
+  border:1px solid #b9864e;
+  border-radius:6px;
+  font:600 11px/1.55 Arial,sans-serif;
+  text-align:center;
+}
+@media(max-width:590px) {
+  .dashboard-right .control-panel .fars-fate-options {
+    grid-template-columns:minmax(0,1fr);
+  }
+  .dashboard-right .control-panel button.fars-fate-card {
+    flex-direction:row;
+    text-align:left;
+    justify-content:flex-start;
+    min-height:106px;
+    padding:10px 12px;
+  }
+  .fars-fate-icon{width:44px;height:44px;flex-basis:44px}
+  .fars-fate-card-body{align-items:flex-start;}
+  .dashboard-right .control-panel .fars-fate-card-body strong{
+    font-size:19px!important;
+  }
+  .dashboard-right .control-panel .fars-fate-intro {font-size:12px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .dashboard-right .control-panel button.fars-fate-card{transition:none!important}
+  .dashboard-right .control-panel button.fars-fate-card:hover{transform:none}
+}

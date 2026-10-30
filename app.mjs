@@ -1,4 +1,5 @@
 import {placeBoardToken} from './board-map.mjs';
+import {renderFateChoices} from './fate-ui.mjs';
 import {renderAuctionControls,selectedAuctionTitle} from './auction-ui.mjs';
 import {CELLS,CELL_TITLES,THEMES,makeSeason,makeId,roll,finishGame,pickAuction,chooseReward,undo,updateGame,updateAuction,changeTheme,renameSeason,validateSeason} from './game.mjs';
 import {configured,connectFirebase,localStorageApi} from './storage.mjs';
@@ -100,7 +101,7 @@ function drawActions(s){const action=$('action-controls'),desc=$('action-descrip
   }else if(s.phase==='auction'){
     action.innerHTML=renderAuctionControls(s.auctions[s.position]||[],s.position);
   }else if(s.phase==='choice'){
-    action.innerHTML=`<div class="action-card"><strong>Что выбирает распорядитель?</strong><p>Безопасный бонус или один шаг вперёд. Контрольные клетки не перепрыгиваются.</p></div><div class="action-buttons"><button class="btn primary" data-action="reward-ticket">✦ Забрать жетон</button><button class="btn outline" data-action="reward-step">➜ Шаг вперёд</button></div>`;
+    action.innerHTML=renderFateChoices(s);
   }else{
     action.innerHTML=`<div class="action-card"><strong>Занавес!</strong><p>Твой сезон завершён. Пройдено ${s.completed.length} игровых этапов. Создай новый сезон, чтобы открыть следующее представление.</p></div><button class="btn outline" id="new-season-from-end">✦ Новый сезон</button>`;
   }
