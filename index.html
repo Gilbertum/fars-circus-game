@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./theme-fars-v081.css" />
   <link rel="stylesheet" href="./theme-fars-v09.css" />
   <link rel="stylesheet" href="./theme-fars-v10.css" />
+  <link rel="stylesheet" href="./theme-fars-v11.css" />
 </head>
 <body>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -59,7 +60,7 @@
       <div class="side-block"><div class="section-overline">ЛИЧНЫЙ КАБИНЕТ</div><div class="streamer-block"><div class="avatar">✦</div><div><div id="streamer-name" class="streamer-name">Стример</div><span class="small muted" id="mode-badge">Демо</span></div></div></div>
       <div class="side-block season-block"><div class="section-overline flex-between">МОИ СЕЗОНЫ <button class="icon-btn" id="new-season" title="Создать сезон" aria-label="Создать сезон">＋</button></div><div id="season-list" class="season-list"></div></div>
       <div class="side-block"><p class="tiny muted">Оформление и список испытаний устанавливает организатор FARS.</p></div>
-      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.10</div></div>
+      <div class="side-bottom"><button id="logout" class="subtle-link">↪ Выход</button><div class="small muted">FARS · Версия 0.11</div></div>
     </aside>
     <div class="workspace">
       <header class="topbar"><div><div class="eyebrow">✦ КОМНАТА РАСПОРЯДИТЕЛЯ</div><h2 id="season-title">Первые гастроли</h2></div><div class="topbar-actions"><span id="save-status" class="save-pill">● Сохранено</span></div></header>
@@ -118,6 +119,7 @@
   <div class="progress-line"><div id="season-progress-bar" class="progress-line-fill"></div></div>
   <p id="season-progress-text" class="muted">Прогресс: 0 из 18 клеток</p>
   <div id="season-metrics" class="season-metrics"></div>
+  <div id="chronicle-root" class="chronicle-root" aria-label="Летопись гастролей"></div>
 </section>
 <section class="panel settings-panel" aria-labelledby="settings-heading">
   <div class="panel-heading"><div><div class="eyebrow">ЛИЧНАЯ ЛОЖА</div><h3 id="settings-heading">Настройки и доступ</h3></div><span class="decor-star">✦</span></div>
@@ -126,7 +128,7 @@
   <div class="event-notice">Вход: Firebase Authentication. Данные сезонов доступны владельцу аккаунта; открытый просмотр публикуется отдельно.</div>
 </section>
         </div>
-        <footer class="footer">FARS — Гастроли проклятых · Интерфейс версии 0.10</footer>
+        <footer class="footer">FARS — Гастроли проклятых · Интерфейс версии 0.11</footer>
       </main>
     </div>
   </div>
